@@ -8,3 +8,4 @@
 2. pipenv shell   - Run the virtual environment
 3. python manage.py runserver 
 
+> Also install stuff using pipenv instead of pip :D
