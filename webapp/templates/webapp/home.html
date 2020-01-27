@@ -1,0 +1,22 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="pt-2" id="contentArea" style="float:left; width: 50%; margin-top: 2%;">
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group pt-2">
+            <button class="btn btn-outline-info" type="submit">Covert</button>
+            <select class="btn btn-outline-dark ">
+                <option value="toPython">Python</option>
+                <option value="toC">C</option>
+            </select>
+        </div>
+    </form>
+    <textarea placeholder="Source Code" rows=10 id="contentArea" style="padding-left:5px; height:auto; width:50%; float:right; height:50%; padding-bottom: 10px; border-radius: 4px;">
+{{ object }}
+    </textarea>
+</div>
+{% endblock content %}
