@@ -4,7 +4,7 @@
 
 ## Instructions
 
-1. pipenv install
-2. pipenv shell
-3. python manage.py runserver
+1. pipenv install - Install all dependencies required. 
+2. pipenv shell   - Run the virtual environment
+3. python manage.py runserver 
 
