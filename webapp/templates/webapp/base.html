@@ -2,18 +2,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+.form-control {
+    background-color: green;
+    min-height: 75vh;
+    width: 50vh;
+    float:left; 
+    width: 49.5%; 
+    margin-top: 22px;
+}
+
+html, body {
+    min-height: 100vh;
+}
+
+.contentArea {
+    padding-left: 5px; 
+    height: 75vh; 
+    width: 49.5%; 
+    float: right; 
+    padding-bottom: 10px; 
+    border-radius: 4px
+}
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webapp/main.css' %}">
 
     <title>Random Title</title>
 </head>
 <body>
-    <main role="main" class="container">
+    <main role="main" class="container-fluid">
         <div class="content-section">
             {% block content %}{% endblock %}
         </div>

@@ -1,0 +1,21 @@
+.form-control {
+    background-color: green;
+    min-height: 80vh;
+    width: 50vh;
+    float:left; 
+    width: 49.5%; 
+    margin-top: 22px;
+}
+
+html, body {
+    min-height: 100vh;
+}
+
+.contentArea {
+    padding-left: 5px; 
+    height: 80vh; 
+    width: 49.5%; 
+    float: right; 
+    padding-bottom: 10px; 
+    border-radius: 4px
+}
