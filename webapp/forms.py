@@ -6,4 +6,4 @@ class InputForm(forms.ModelForm):
     class Meta:
         model = Content
         fields = ('inputData', )
-        attrs = {'class': 'form-control'}
+        attrs = {'class': 'form-contr'}

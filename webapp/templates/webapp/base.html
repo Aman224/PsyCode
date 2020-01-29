@@ -4,17 +4,16 @@
 <head>
     <style>
 
-.form-control {
-    background-color: green;
+#id_inputData {
     min-height: 75vh;
-    width: 50vh;
     float:left; 
-    width: 49.5%; 
+    width: 99.5; 
     margin-top: 22px;
 }
 
+
 html, body {
-    min-height: 100vh;
+    height: 100%;
 }
 
 .contentArea {
@@ -43,6 +42,13 @@ html, body {
     margin-bottom: 10px;
 }
 
+footer {
+    position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
 .asteriskField { display: none; }
 
 </style>
@@ -58,43 +64,72 @@ html, body {
 
     <title>PsyCode</title>
 </head>
-<body>
+
+<body class="d-flex flex-column">
 
     <!--Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Psy Code</a>
+        <a class="navbar-brand " href="#">Psy Code</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-          </ul>
-          <span class="navbar-text">
-            <button class="btn btn-outline-dark" type="submit" style="padding-top: 4px; padding-bottom: 4px;">Log in</button>
-          </span>
-          <span class="navbar-text ml-2">
-            <button class="btn btn-primary btn-outline-primary text-light" type="submit" style="padding-top: 4px; padding-bottom: 4px;;">Sign up</button>
-          </span>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+
+            <!--Login, Logout and username-->
+            {% if user.is_authenticated %}
+                <a class="nav-item nav-link " href="">{{ user.username }}</a>
+                <a href = " {% url 'logout' %}" class="btn btn-dark" type="submit" href="{% url 'register' %}" style="padding-top: 4px; padding-bottom: 4px;">
+                    Log out
+                </a>
+            {% else %}
+                <span>
+                    <a href = "{% url 'login' %}" class="btn btn-outline-dark" type="submit" style="padding-top: 4px; padding-bottom: 4px;">
+                        Log in
+                    </a>
+                </span>
+                <span class="ml-2">
+                    <a href = "{% url 'register' %}" class="btn btn-primary btn-outline-primary text-light" type="submit" style="padding-top: 4px; padding-bottom: 4px;">
+                        Sign up
+                    </a>
+                </span>
+            {% endif %}
+            
         </div>
     </nav>
 
     <!--Input Section-->
-    <main role="main" class="container-fluid">
-        <div class="content-section">
+
+    <div id="page-content">
+        <div class="container-fluid content-section">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        
             {% block content %}{% endblock %}
         </div>
-    </main>
-
-
-    <!--Footer-->
-    <footer class="bottom-footer navbar-dark bg-dark text-light">
-        Copyright &copy 2020 PsyCode
+    </div>
+        
+    <!--footer-->
+    <footer id="sticky-footer" class="py-2 mt-3 bg-dark text-white-50">
+        <div class="text-center">
+            <span style="font-size: 14px;">
+                2020 PsyCode
+            </span>
+        </div>
     </footer>
 </body>
+
+</body >
 </html>
