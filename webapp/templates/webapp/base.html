@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <style>
+
 .form-control {
     background-color: green;
     min-height: 75vh;
@@ -24,7 +25,29 @@ html, body {
     padding-bottom: 10px; 
     border-radius: 4px
 }
-    </style>
+
+.bottom-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    height: 7vh;
+    margin-bottom: 10px;
+}
+
+.asteriskField { display: none; }
+
+</style>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -33,13 +56,45 @@ html, body {
 
     <link rel="stylesheet" type="text/css" href="{% static 'webapp/main.css' %}">
 
-    <title>Random Title</title>
+    <title>PsyCode</title>
 </head>
 <body>
+
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Psy Code</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <button class="btn btn-outline-dark" type="submit" style="padding-top: 4px; padding-bottom: 4px;">Log in</button>
+          </span>
+          <span class="navbar-text ml-2">
+            <button class="btn btn-primary btn-outline-primary text-light" type="submit" style="padding-top: 4px; padding-bottom: 4px;;">Sign up</button>
+          </span>
+        </div>
+    </nav>
+
+    <!--Input Section-->
     <main role="main" class="container-fluid">
         <div class="content-section">
             {% block content %}{% endblock %}
         </div>
     </main>
+
+
+    <!--Footer-->
+    <footer class="bottom-footer navbar-dark bg-dark text-light">
+        Copyright &copy 2020 PsyCode
+    </footer>
 </body>
 </html>
