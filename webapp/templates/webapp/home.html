@@ -8,15 +8,9 @@
             {{ form|crispy }}
         </fieldset>
         <div class="form-group pt-2">
-            <button class="btn btn-outline-info" type="submit" style="margin-left: 1%; margin-right: 5px">Convert</button>
-            <select class="btn btn-outline-dark ">
-                <option value="toPython">Python</option>
-                <option value="toC">C</option>
-            </select>
+            <button class="btn btn-outline-info" type="submit" style="margin-left: 1%; margin-right: 5px; margin-top:2.1%">Convert</button>
         </div>
     </form>
-    <textarea placeholder="Source Code" class="contentArea">
-{{ object }}
-    </textarea>
+    <textarea placeholder="Source Code" class="contentArea">{{ object }}</textarea>
 </div>
 {% endblock content %}
