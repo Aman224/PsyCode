@@ -10,7 +10,7 @@ LANGUAGES = (
 
 class Content(models.Model):
     inputData = models.TextField()
-    language = models.CharField(max_length=10, choices=LANGUAGES)
+    language = models.CharField(max_length=10, choices=LANGUAGES, default='python')
     outputData = models.TextField()
 
     def get_absolute_url(self):

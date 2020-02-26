@@ -13,7 +13,8 @@ class InputForm(forms.ModelForm):
     class Meta:
         model = Content
         fields = ('language', 'inputData')
-        
+    
     def __init__(self, *args, **kwargs):
         super(InputForm, self).__init__(*args, **kwargs)
         self.fields['inputData'].widget.attrs['placeholder'] = 'Enter Pseudocode'
+
