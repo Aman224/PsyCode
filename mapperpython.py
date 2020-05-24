@@ -6,13 +6,12 @@ def converter_python():
 #no spaces inside the text in XML tags
 
 def mapper():
-    loop_list = []     
     statement = '' 
     value = 0
-    loop_count = 0
+    indendation_count = 0
     while value < len(tag):
-        if(tag[value] != 'done' and len(loop_list) and  loop_count):
-            cond_statement_indendation(loop_count)
+        if(tag[value] != 'done' and  indendation_count):
+            cond_statement_indendation(indendation_count)
         if(tag[value] == 'assignment'):
             count = 1                         # enables assignment operation
             for i in range(value+1,len(tag)):
@@ -44,30 +43,26 @@ def mapper():
                         break
             else:
                 print_expression(value)
+        # if(tag[value] == 'function'):
+
         if(tag[value] == 'if'):
-            loop_list.insert(0,tag[value])
             value = cond_statement_expression(tag[value],value)
-            loop_count += 1
+            indendation_count += 1
         if(tag[value] == 'elif'):
-            loop_list.insert(0,tag[value])
             value = cond_statement_expression(tag[value],value)
-            loop_count += 1
+            indendation_count += 1
         if(tag[value] == 'else'):
-            loop_list.insert(0,tag[value])
-            loop_count += 1
+            indendation_count += 1
             else_expression(value)
             value += 1              #to skip body tag
         if(tag[value] == 'while'):
-            loop_list.insert(0,tag[value])
             value = cond_statement_expression(tag[value],value)
-            loop_count += 1
+            indendation_count += 1
         if(tag[value] == 'done'):                           #removes loop indendation
-            loop_count -= 1
-            loop_list.pop(0)
+            indendation_count -= 1
         if(tag[value] == 'for_each'):
-            loop_list.insert(0,tag[value])
             value = for_expression(value)
-            loop_count += 1
+            indendation_count += 1
         if(tag[value] == 'keyword'):
             f.write(text[value]+'\n')
         value += 1
@@ -147,4 +142,5 @@ print (tag)
 print (text)
 f = open("final_python.txt","w")
 converter_python()
+
 
