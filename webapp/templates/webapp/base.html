@@ -11,35 +11,49 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- Google Material Icons Stylesheet -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 
     <title>PsyCode</title>
 </head>
 
-<body class="d-flex flex-column bg-dark">
+<body class="d-flex flex-column">
 
+    <div id="overlay" onclick="off()">
+        <div id="text">
+            <p class="splash-heading">PSEDUOCODE TO CODE</p>
+        </div>
+    </div>
+    
     <!--Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 2px;">
-        <a class="navbar-brand" href="#">PSEUDOCODE TO CODE</a>
+    <nav class="navbar navbar-expand-lg" id="navbar_ID" style="margin-bottom: 2px;">
+        <span class="navbar-brand" href="#">
+            PSEUDOCODE TO CODE
+        </span>
+        <i class="material-icons dark-mode-switch">code</i>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <span class="nav-link" href="#">About</span>
                 </li>
                 <li class="nav-item">
                     <span class="nav-link disabled lang-sel-label" href="#">Language</span>
                 </li>
             </ul>
 
+
+            <i class="material-icons dark-mode-switch"  onclick="darkMode()">brightness_4</i>
+            
             <!-- How to Use button -->
-            <span>
-                <a href = "#" class="btn btn-success nav-button" type="submit">
-                    How to Use
-                    <img style="margin-bottom: 4px" src="https://img.icons8.com/material/24/000000/help--v1.png"/>
-                </a>
-            </span>
+            <button class="btn nav-button" type="submit">
+                How to Use
+                <img style="margin-bottom: 4px" src="https://img.icons8.com/material/24/000000/help--v1.png"/>
+            </button>
+            
             
         </div>
     </nav>
@@ -96,7 +110,7 @@
 
     // Script for lable positioning
     function labelPosition() {
-        var width = $(".contentArea").width() - $(".form-group").width() -225 - 140;
+        var width = $(".contentArea").width() - $(".form-group").width() -225 - 185;
 
         $(".lang-sel-label").css("left", width);
     }
@@ -111,7 +125,32 @@
         labelPosition();
     });
 
-    
+    function on() {
+  document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+  document.getElementById("overlay").style.display = "none";
+}
+
+
+// Dark mode
+function darkMode() {
+    var body = document.body;
+    var nav = document.getElementById("navbar_ID");
+    var langSelector = document.getElementById("id_language");
+
+    body.classList.toggle("dark-mode");
+    nav.classList.toggle("nav-dark-mode");
+    langSelector.classList.toggle("langSel-dark-mode");
+
+    // Get all text areas.
+    $('textarea').each(function(){
+        this.classList.toggle("text-area-dark-mode");
+    });
+
+}
+
 </script>
 
 </html>
