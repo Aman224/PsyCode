@@ -34,6 +34,7 @@ html, body {
     z-index: 2;
 }
 
+
 /* Navbar */
 
 .navbar {
@@ -65,6 +66,42 @@ nav {
     cursor: pointer !important;
 }
 
+/*  Text areas */
+
+#id_inputData {
+    min-height: 88vh;
+    float:left; 
+    width: 99.2; 
+}
+
+.contentArea {
+    padding:6px 12px;
+    height: 88vh; 
+    width: 49.6%; 
+    float: right; 
+    padding-bottom: 10px; 
+    border-radius: 4px;
+    position: relative;
+    top: -5px;
+}
+
+#page-content {
+    position: relative;
+    top: -45px;
+    z-index: 1;
+}
+
+textarea {
+    font-family: Consolas !important;
+    box-shadow: 0px 6px 20px 5px rgba(0,0,0,0.1);
+    border: none !important;
+    border-radius: 0.25rem;
+}
+
+.requiredField { display: none; }
+
+
+/* Language selector */
 
 #div_id_language {
     float:right;
@@ -81,17 +118,6 @@ nav {
     border: none;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
 }
-
-#id_inputData {
-    min-height: 88vh;
-    float:left; 
-    width: 99.2; 
-}
-
-.requiredField { display: none; }
-
-
-/* Language selector */
 
 .lang-sel {
     position: absolute;
@@ -146,16 +172,7 @@ nav {
 }
 
 
-.contentArea {
-    padding:6px 12px;
-    height: 88vh; 
-    width: 49.6%; 
-    float: right; 
-    padding-bottom: 10px; 
-    border-radius: 4px;
-    position: relative;
-    top: -5px;
-}
+
 
 .bottom-footer {
     position: fixed;
@@ -177,18 +194,7 @@ footer {
 
 .asteriskField { display: none; }
 
-#page-content {
-    position: relative;
-    top: -45px;
-    z-index: 1;
-}
 
-textarea {
-    font-family: Consolas !important;
-    box-shadow: 0px 6px 20px 5px rgba(0,0,0,0.1);
-    border: none !important;
-    border-radius: 0.25rem;
-}
 
 textarea:focus { outline: none; }
 
