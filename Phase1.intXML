@@ -1,6 +1,0 @@
-<program> <identifier> 
-  <assign> <identifier> = <int> </assign>
-  <assign> <identifier> = <int> </assign>
-  <identifier> = <identifier> <operator> <identifier> 
-  <keyword> <print> <identifier> 
- </program>

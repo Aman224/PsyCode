@@ -129,7 +129,7 @@ def print_expression(i):
 
 # file = input("enter file to be parsed")
 # f = open("Phase1.intXML", "r")
-file = "Final.xml"
+file = "input.ini"
 file = file.lstrip()
 mytree = ET.parse(file)
 myroot = mytree.getroot()

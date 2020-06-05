@@ -1,0 +1,26 @@
+[
+    {
+        "intendLevel": 0,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "x"
+            ],
+            [
+                "constant",
+                "10"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 0,
+        "tag": "print",
+        "data": [
+            [
+                "string",
+                "\"hello world\""
+            ]
+        ]
+    }
+]

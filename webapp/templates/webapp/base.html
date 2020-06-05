@@ -1,132 +1,45 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <style>
-
-#div_id_language {
-    float:right;
-    width: 40%;
-}
-
-#id_language {
-    float: right;
-}
-
-#id_inputData {
-    min-height: 75vh;
-    float:left; 
-    width: 99.5; 
-}
-
-.requiredField {
-   font-size: 13px;
-   font-weight: 500;
-}
-
-html, body {
-    height: 100%;
-}
-
-.lang-sel {
-    position: absolute;
-    margin-left: 21%;
-    margin-top:16px;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.contentArea {
-    padding:6px 12px;
-    height: 75vh; 
-    width: 49.5%; 
-    float: right; 
-    padding-bottom: 10px; 
-    border-radius: 4px;
-}
-
-.bottom-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 10px 0px;
-    text-align: center;
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
-    background-color: rgb(0, 0, 0);
-    height: 7vh;
-    margin-bottom: 10px;
-}
-
-footer {
-    position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-}
-
-.langSel {
-    width: 2%;
-}
-
-.asteriskField { display: none; }
-
-</style>
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="{% static 'webapp/main.css' %}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'webapp/main.css' %}">
-
-
-
     <title>PsyCode</title>
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column bg-dark">
 
     <!--Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 2px;">
-        <a class="navbar-brand " href="#">Pseudocode to Code</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 2px;">
+        <a class="navbar-brand" href="#">PSEUDOCODE TO CODE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
                 </li>
+                <li class="nav-item">
+                    <span class="nav-link disabled lang-sel-label" href="#">Language</span>
+                </li>
             </ul>
 
-            <!--Login, Logout and username-->
-            {% if user.is_authenticated %}
-                <a class="nav-item nav-link " href="">{{ user.username }}</a>
-                <a href = " {% url 'logout' %}" class="btn btn-dark" type="submit" href="{% url 'register' %}" style="padding-top: 4px; padding-bottom: 4px;">
-                    Log out
+            <!-- How to Use button -->
+            <span>
+                <a href = "#" class="btn btn-success nav-button" type="submit">
+                    How to Use
+                    <img style="margin-bottom: 4px" src="https://img.icons8.com/material/24/000000/help--v1.png"/>
                 </a>
-            {% else %}
-                <span>
-                    <a href = "{% url 'login' %}" class="btn btn-outline-dark" type="submit" style="padding-top: 4px; padding-bottom: 4px;">
-                        Log in
-                    </a>
-                </span>
-                <span class="ml-2">
-                    <a href = "{% url 'register' %}" class="btn btn-primary btn-outline-primary text-light" type="submit" style="padding-top: 4px; padding-bottom: 4px;">
-                        Sign up
-                    </a>
-                </span>
-            {% endif %}
+            </span>
             
         </div>
     </nav>
@@ -158,6 +71,8 @@ footer {
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
 
 <script>
+
+    // Script for tab spaces
     $("#id_inputData").keydown(function(e) {
         if(e.keyCode === 9) { // tab was pressed
             // get caret position/selection
@@ -178,6 +93,25 @@ footer {
             return false;
         }
     });
+
+    // Script for lable positioning
+    function labelPosition() {
+        var width = $(".contentArea").width() - $(".form-group").width() -225 - 140;
+
+        $(".lang-sel-label").css("left", width);
+    }
+
+    // On window resize
+    $(window).resize(function(){
+        labelPosition();
+    });
+
+    // On window load
+    $(window).ready(function(){
+        labelPosition();
+    });
+
+    
 </script>
 
 </html>

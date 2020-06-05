@@ -1,0 +1,16 @@
+[
+    {
+        "intendLevel": 0,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "a"
+            ],
+            [
+                "constant",
+                "10"
+            ]
+        ]
+    }
+]
