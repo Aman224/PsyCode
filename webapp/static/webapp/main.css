@@ -27,12 +27,17 @@ html, body {
     color: white !important;
 }
 
+.langSel-label-dark-mode {
+    color: #e6e6e6b8 !important;
+}
+
 .dark-mode-switch {
     position: relative;
     margin-right: 15px;
     cursor: pointer;
     z-index: 2;
 }
+
 
 
 /* Navbar */
@@ -116,7 +121,7 @@ textarea {
     background-color: white;
     color: black;
     border: none;
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
 }
 
 .lang-sel {
@@ -127,14 +132,15 @@ textarea {
     font-weight: 500;
 }
 
-.lang-sel-label {
+#lang-sel-label {
     position: relative;
     float: right;
-    top: 2px;
-    letter-spacing: 0.4px;
-    font-size: 12px;
+    top: 14px;
+    letter-spacing: 1.5px;
+    font-size: 10px;
     color: black;
 }
+
 
 
 /* Buttons */
@@ -170,7 +176,6 @@ textarea {
     height: 36px;
     background-color: #65bb86 !important;
 }
-
 
 
 .bottom-footer {
@@ -230,7 +235,7 @@ textarea:focus { outline: none; }
     color: white;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
-    background: #292b2c;
+    background: #f8f9fa;
     box-shadow: 0px 0px 20px 11px rgba(0,0,0,0.1);
     width: 50%;
     height: 65%;

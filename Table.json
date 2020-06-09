@@ -1,15 +1,22 @@
 [
     {
         "intendLevel": 0,
-        "tag": "assignment",
+        "tag": "Definition",
         "data": [
             [
-                "identifier",
-                "a"
+                "type",
+                "int"
             ],
             [
-                "constant",
-                "10"
+                "NoAssign_List",
+                [
+                    "a",
+                    "b"
+                ]
+            ],
+            [
+                "Assign_List",
+                []
             ]
         ]
     }

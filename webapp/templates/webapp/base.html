@@ -18,7 +18,7 @@
     <title>PsyCode</title>
 </head>
 
-<body class="d-flex flex-column">
+<body class="light-mode" id="body">
 
     <div id="overlay" onclick="off()">
         <div id="text">
@@ -28,20 +28,23 @@
     
     <!--Navigation-->
     <nav class="navbar navbar-expand-lg" id="navbar_ID" style="margin-bottom: 2px;">
-        <span class="navbar-brand" href="#">
+        <span class="navbar-brand" href="">
             PSEUDOCODE TO CODE
         </span>
-        <i class="material-icons dark-mode-switch">code</i>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
+                    <i class=" nav-link material-icons dark-mode-switch">code</i>
+                </li>
+                <li class="nav-item">
                 <span class="nav-link" href="#">About</span>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link disabled lang-sel-label" href="#">Language</span>
+                    <span id="lang-sel-label">LANGUAGE</span>
                 </li>
             </ul>
 
@@ -108,11 +111,12 @@
         }
     });
 
+
     // Script for lable positioning
     function labelPosition() {
-        var width = $(".contentArea").width() - $(".form-group").width() -225 - 185;
+        var width = $(".contentArea").width() - $(".form-group").width() -225 - 198;
 
-        $(".lang-sel-label").css("left", width);
+        $("#lang-sel-label").css("left", width);
     }
 
     // On window resize
@@ -123,33 +127,88 @@
     // On window load
     $(window).ready(function(){
         labelPosition();
+
+        // Prevent splashpage after first load
+        if (sessionStorage.getItem("is_reloaded")) {
+            off();
+        }
+        sessionStorage.setItem("is_reloaded", true);
     });
+
+
 
     function on() {
-  document.getElementById("overlay").style.display = "block";
-}
+    document.getElementById("overlay").style.display = "none";
+    }
 
-function off() {
-  document.getElementById("overlay").style.display = "none";
-}
+    function off() {
+    document.getElementById("overlay").style.display = "none";
+    }
 
+    // Dark mode
+    function darkMode() {    
 
-// Dark mode
-function darkMode() {
-    var body = document.body;
-    var nav = document.getElementById("navbar_ID");
-    var langSelector = document.getElementById("id_language");
+        var body = document.getElementById('body');
+        var currClass = body.className;
 
-    body.classList.toggle("dark-mode");
-    nav.classList.toggle("nav-dark-mode");
-    langSelector.classList.toggle("langSel-dark-mode");
+        var nav = document.getElementById("navbar_ID");
+        var langSelector = document.getElementById("id_language");
+        var langSelLabel = document.getElementById("lang-sel-label");
 
-    // Get all text areas.
-    $('textarea').each(function(){
-        this.classList.toggle("text-area-dark-mode");
-    });
+        var newClass = body.className == 'dark-mode' ? 'light-mode' : 'dark-mode';
 
-}
+        body.className = newClass;
+
+        // Save to cookie
+        document.cookie = 'theme=' + (newClass == 'light-mode' ? 'light' : 'dark')
+        console.log('Cookies are now: ' + document.cookie);
+    
+        nav.classList.toggle("nav-dark-mode");
+        langSelector.classList.toggle("langSel-dark-mode");
+        langSelLabel.classList.toggle("langSel-label-dark-mode");
+
+        // Get all text areas.
+        $('textarea').each(function(){
+            this.classList.toggle("text-area-dark-mode");
+        });
+
+    }
+
+    function isDarkThemeSelected() {
+        return document.cookie.match(/theme=dark/i) != null;
+    }
+
+    function setThemeFromCookie() {
+        var body = document.getElementById('body');
+        var nav = document.getElementById("navbar_ID");
+        var langSelector = document.getElementById("id_language");
+        var langSelLabel = document.getElementById("lang-sel-label");
+
+        body.className = isDarkThemeSelected() ? 'dark-mode' : 'light-mode';
+
+        if(isDarkThemeSelected()) {
+            body.className = 'dark-mode';
+            nav.classList.add("nav-dark-mode");
+            langSelector.classList.add("langSel-dark-mode");
+            langSelLabel.classList.add("langSel-label-dark-mode");
+
+            $('textarea').each(function(){
+            this.classList.toggle("text-area-dark-mode");
+        });
+
+        }
+        else {
+            body.className = 'light-mode';
+            nav.classList.remove("nav-dark-mode");
+            langSelector.classList.remove("langSel-dark-mode");
+            langSelLabel.classList.remove("langSel-label-dark-mode");
+        }
+
+    }
+
+    (function() {
+    setThemeFromCookie();
+    })();
 
 </script>
 

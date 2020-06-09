@@ -31,8 +31,7 @@ class HomeView(TemplateView):
             f.write("\n")
             f.close()
 
-            os.system("python ./webapp/Stag1JsonImplementation.py")
-            os.system("python ./webapp/StateMachineMethod.py > Final.xml")
+
 
         # pdata = transmogrify()
 
@@ -40,13 +39,21 @@ class HomeView(TemplateView):
         
         # Language module for python
         if(language == 'python'):
+            # Transmography
+            os.system("python ./webapp/Stag1JsonImplementation.py")
+            os.system("python ./webapp/StateMachineMethod.py > Final.xml")
+
+            # Language
             os.system("python ./webapp/mapperpython.py")
             f = open('final_python.txt', 'r')
             data = f.read()
             f.close()
 
         # Language module for C
-        
+        if(language == 'c'):
+            os.system("python ./webapp/CLexer.py")
+            os.system("python ./webapp/CMapStateMachine.py > Final.xml")
+
 
 
         context = {'form': form, 'object': data}

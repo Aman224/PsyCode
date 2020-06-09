@@ -2,12 +2,13 @@
 
 
 
-<assignment>
+<var_define>
+<variable_type>int</variable_type>
 <variable>
-<var_name>a</var_name>
+<variable_name>a</variable_name>
 </variable>
-<value>
-<constant>10</constant>
-</value>
-</assignment>
+<variable>
+<variable_name>b</variable_name>
+</variable>
+</var_define>
 </program>
