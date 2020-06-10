@@ -200,11 +200,7 @@ def indendation_check(sets,flag):
 				body_list.pop(0)
 
 	
-
-
-
-
-file = input("enter file to be parsed")
+file = "Final.xml"
 file = file.lstrip()
 mytree = ET.parse(file)   
 myroot = mytree.getroot()

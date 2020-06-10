@@ -1,14 +1,1 @@
 <program>
-
-
-
-<var_define>
-<variable_type>int</variable_type>
-<variable>
-<variable_name>a</variable_name>
-</variable>
-<variable>
-<variable_name>b</variable_name>
-</variable>
-</var_define>
-</program>

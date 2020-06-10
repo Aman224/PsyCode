@@ -4,6 +4,7 @@ from django.urls import reverse
 
 LANGUAGES = (
     ('c','C'),
+    ('c++','C++'),
     ('python','Python'),
 )
 

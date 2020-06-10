@@ -15,6 +15,9 @@
     <!-- Google Material Icons Stylesheet -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
     <title>PsyCode</title>
 </head>
 
@@ -28,7 +31,7 @@
     
     <!--Navigation-->
     <nav class="navbar navbar-expand-lg" id="navbar_ID" style="margin-bottom: 2px;">
-        <span class="navbar-brand" href="">
+        <span class="navbar-brand" href="{% url 'home' %}">
             PSEUDOCODE TO CODE
         </span>
 
@@ -90,7 +93,7 @@
 <script>
 
     // Script for tab spaces
-    $("#id_inputData").keydown(function(e) {
+    $("textarea").keydown(function(e) {
         if(e.keyCode === 9) { // tab was pressed
             // get caret position/selection
             var start = this.selectionStart;

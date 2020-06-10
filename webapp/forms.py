@@ -3,6 +3,7 @@ from .models import Content
 
 LANGUAGES = (
     ('c','C'),
+    ('c++', 'C++'),
     ('python','Python'),
 )
 
@@ -17,4 +18,5 @@ class InputForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(InputForm, self).__init__(*args, **kwargs)
         self.fields['inputData'].widget.attrs['placeholder'] = 'Enter Pseudocode'
+        self.fields['inputData'].widget.attrs['spellcheck'] = 'false'
 

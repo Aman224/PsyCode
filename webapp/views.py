@@ -55,7 +55,6 @@ class HomeView(TemplateView):
             os.system("python ./webapp/CMapStateMachine.py > Final.xml")
 
 
-
         context = {'form': form, 'object': data}
 
         return render(request, self.template_name, context)

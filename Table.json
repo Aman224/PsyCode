@@ -1,22 +1,129 @@
 [
     {
         "intendLevel": 0,
-        "tag": "Definition",
+        "tag": "program",
         "data": [
             [
-                "type",
-                "int"
+                "identifier",
+                "main"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "",
+        "data": [
+            [
+                "identifier",
+                "declare"
             ],
             [
-                "NoAssign_List",
-                [
-                    "a",
-                    "b"
-                ]
+                "identifier",
+                "s"
             ],
             [
-                "Assign_List",
-                []
+                "identifier",
+                "a"
+            ],
+            [
+                "comma",
+                ","
+            ],
+            [
+                "identifier",
+                "b"
+            ],
+            [
+                "comma",
+                ","
+            ],
+            [
+                "identifier",
+                "c"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "accept"
+            ],
+            [
+                "identifier",
+                "a"
+            ],
+            [
+                "identifier",
+                "input"
+            ],
+            [
+                "identifier",
+                "from"
+            ],
+            [
+                "identifier",
+                "user"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "accept"
+            ],
+            [
+                "identifier",
+                "b"
+            ],
+            [
+                "identifier",
+                "input"
+            ],
+            [
+                "identifier",
+                "from"
+            ],
+            [
+                "identifier",
+                "user"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "c"
+            ],
+            [
+                "identifier",
+                "a"
+            ],
+            [
+                "operator",
+                "+"
+            ],
+            [
+                "identifier",
+                "b"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "print",
+        "data": [
+            [
+                "identifier",
+                "c"
             ]
         ]
     }
