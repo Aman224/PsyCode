@@ -2,11 +2,16 @@ import xml.etree.ElementTree as ET,re
 
 def RecursiveTag(Tree,parent=None):
     children=list(Tree)
-    print(children)
+    #print(children)
     tag=Tree.tag 
     text=Tree.text
     global variable_list
     global variable
+    global expression
+    global for_list
+    global isPrime
+    global isDivisible
+    global isMultiple
     #if(len(children)==0):
     #    pass
     #else:
@@ -24,6 +29,8 @@ def RecursiveTag(Tree,parent=None):
                 f.write('\n}\n')
         elif(child.tag=='assignment'):
             RecursiveTag(child,'assignment')
+            f.write(expression)
+            expression=''
             if(parent=='for_init'):
                 f.write(';')
             else:
@@ -54,8 +61,6 @@ def RecursiveTag(Tree,parent=None):
             f.write(statement+';\n')
             variable_list=[]
             statement=''
-
-
         elif(child.tag=='header'):
             f.write('#include<'+child.text+'.h>\n')
         elif(child.tag=='type'):
@@ -107,14 +112,7 @@ def RecursiveTag(Tree,parent=None):
         
         elif(child.tag=='variable_type'):
             if(parent=='printf_expression_variable' or parent=='input_expression_variable'):
-                if(child.text=='int'):
-                    f.write('%'+'d ')
-                elif(child.text=='char'):
-                    f.write('%'+'c')
-                elif(child.text=='float'):
-                    f.write('%'+'f')
-                elif(child.text=='double'):
-                    f.write('%'+'f')
+                continue
             elif(parent=='input_expression_variable' or parent=='function_call'):
                 continue
             elif(parent=='function_expression_variable'):
@@ -144,7 +142,7 @@ def RecursiveTag(Tree,parent=None):
                 
         elif(child.tag=='string'):
             if(parent=='printf_expression'):
-                f.write(child.text+' ')
+                f.write('"'+child.text+'"')
             elif(parent=='assignment'):
                 expression+='"'+child.text+'" '
 
