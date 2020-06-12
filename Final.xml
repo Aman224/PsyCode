@@ -1,4 +1,6 @@
 <program>
+<main>
+<body>
 
 
 
@@ -10,4 +12,6 @@
 <constant>10</constant>
 </value>
 </assignment>
+</body>
+</main>
 </program>

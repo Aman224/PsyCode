@@ -1,6 +1,16 @@
 [
     {
         "intendLevel": 0,
+        "tag": "main",
+        "data": [
+            [
+                "main",
+                "main"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
         "tag": "assignment",
         "data": [
             [
