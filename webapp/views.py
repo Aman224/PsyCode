@@ -41,7 +41,7 @@ class HomeView(TemplateView):
         if(language == 'python'):
             # Transmography
             os.system("python ./webapp/Stag1JsonImplementation.py")
-            os.system("python ./webapp/StateMachineMethod.py > Final.xml")
+            os.system("python ./webapp/StateMachineMethod.py > Final_XML.xml")
 
             # Language
             os.system("python ./webapp/mapperpython.py")
@@ -50,7 +50,7 @@ class HomeView(TemplateView):
         elif(language == 'c'):
             # Transmogrify
             os.system("python ./webapp/CLexer.py")
-            os.system("python ./webapp/CMapStateMachine.py > Final.xml")
+            os.system("python ./webapp/CMapStateMachine.py > Final_XML.xml")
 
             # Language
             os.system("python ./webapp/cmapper.py")
@@ -60,7 +60,7 @@ class HomeView(TemplateView):
         elif(language == 'c++'):
             # Transmogrify
             os.system("python ./webapp/CLexer.py")
-            os.system("python ./webapp/CMapStateMachine.py > Final.xml")
+            os.system("python ./webapp/CMapStateMachine.py > Final_XML.xml")
 
             # Language
             os.system("python ./webapp/cppmapper.py")

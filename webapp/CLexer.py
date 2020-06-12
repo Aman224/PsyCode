@@ -26,8 +26,8 @@ def addToTable():
 	jsonLine=list()
 	jsonObj.append(objDict)
 
-tokens = ("MAIN","VARDEFINE","DECLARATION","WHILE","TYPE","INPUT","INCREMENT","DECREMENT","ISGEQ","ISGREATER","ISLEQ","ISLESSER","ISDIVISIBLE","ISPRIME","ISFACTOR",\
-		"ASSIGNMENT","PRINT","RETURN","FUNCTION","PROGRAM","IF","ELSEIF","ELSE","EQUAL","BOOLSTRINGS","BOOLOPERATOR",\
+tokens = ("MAIN","VARDEFINE","DECLARATION","WHILE","TYPE","INPUT","INCREMENT","DECREMENT","ISGEQ","ISGREATER","ISLEQ","ISLESSER","ISDIVISIBLE","ISMULTIPLE","ISPRIME","ISFACTOR",\
+		"ASSIGNMENT","PRINT","RETURN","FUNCTIONDEF","FUNCTIONCALL","PROGRAM","IF","ELSEIF","ELSE","EQUAL","BOOLOPERATOR",\
 			"OPERATOR","CONSTANT","STRING","IDENTIFIERS","OPENSQUARE","CLOSESQUARE","OPENCURLY","CLOSECURLY","COMMA",\
 				"NEWLINE","SPACES","UNKNOWN") 
 #Direct Replacemet
@@ -168,18 +168,23 @@ def t_ISDIVISIBLE(t):
 	print("<boolStr>",end="")
 	addToLine(("boolStr","d"))
 
+def t_ISMULTIPLE(t):
+	r'is\s+a\smultiple\s+of'
+	print("<boolStr>",end="")
+	addToLine(("boolStr","#m"))
+
 def t_ISPRIME(t):
 	r'is\s+prime'
 	print("<boolStr>",end="")
-	addToLine(("boolStr","p"))
+	addToLine(("boolStr","#p"))
 
 def t_ISFACTOR(t):
 	r'is\s+a\s+factor\s+of'
 	print("<boolStr>",end="")
-	addToLine(("boolStr","f"))
+	addToLine(("boolStr","#f"))
 
 def t_ASSIGNMENT(t):
-	r'set|[Aa]ssign|initiali[zs]e'
+	r'set|[Aa]ssign|initiali[zs]e|[Aa]ccept'
 	print("<assign>",end="")
 	# addToLine(("assign",t.value))
 	setSemantics("assignment")
@@ -192,12 +197,24 @@ def t_PRINT(t):
 
 def t_RETURN(t):
 	r'[Rr]eturn'
-	print("<return>",end="")
+	print("<return>",end ="")
 	setSemantics("return")
-	addToLine(("return",t.value))
 
 #Top level stuff
-def t_FUNCTION(t):
+def t_FUNCTONDEF(t):
+	r'(int|float|char|string)\s*[a-zA-Z][a-zA-Z0-9_]*\s*\(.*\)'
+	ip = t.value[:-1]
+	ip =ip.split("(")
+	args = ip[1]
+	ip = ip[0].split()
+	ret_type = ip[0]
+	fname = ip[1]
+	setSemantics("function")
+	addToLine(("Return_Type",ret_type))
+	addToLine(("function_name",fname))
+	addToLine(("Arguments",args))
+
+def t_FUNCTIONCALL(t):
 	r'[a-zA-Z][0-9a-zA-Z_]*\('
 	print("<function_call>",end ="")
 	addToLine(("function_call",t.value[:-1]))
@@ -231,10 +248,6 @@ def t_ELSE(t):
 
 
 #Mid level Stuff
-def t_BOOLSTRINGS(t):
-	r'is\s+divisible\s+by|is\s+a\smultiple\s+of'
-	print("<boolStr>",end="")
-	addToLine(("boolStr",t.value))
 
 def t_BOOLOPERATOR(t):
 	r'>=|<=|!=|<|>|==|[Ee]quals|[aA]nd|[oO]r|[Nn]ot\s+equal\s+to'
@@ -353,12 +366,9 @@ if __name__ == "__main__":
 			intend_level = intendChecker(line,intend_level)
 			lexer.input(line)
 			# print("\t"*intend_level,end="")
-			while True: 
-				tok = lexer.token()
-				if tok:
-					pass
-				else:
-					break
+			while tok:= lexer.token():
+				# json_file.append(tok.value)
+				pass
 	
 	with open("Table.json",'w') as table:
 		json.dump(jsonObj,table,indent=4)

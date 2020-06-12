@@ -11,6 +11,23 @@
     },
     {
         "intendLevel": 1,
+        "tag": "Declaration",
+        "data": [
+            [
+                "Type",
+                "int"
+            ],
+            [
+                "VarList",
+                [
+                    "b",
+                    "a"
+                ]
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
         "tag": "assignment",
         "data": [
             [
@@ -20,6 +37,20 @@
             [
                 "constant",
                 "10"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "b"
+            ],
+            [
+                "constant",
+                "20"
             ]
         ]
     }

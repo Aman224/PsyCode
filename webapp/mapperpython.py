@@ -290,10 +290,9 @@ def assignment_value_check(flag):
 			value_list.insert(0,flag)
 
 	
-file = "Final.xml"
+file = "Final_XML.xml"
 file = file.lstrip()
 mytree = ET.parse(file)   
 myroot = mytree.getroot()
 f = open("final_output.txt","w")
 RecPy(myroot)
-
