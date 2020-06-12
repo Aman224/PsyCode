@@ -142,6 +142,7 @@ for elem in myroot.iter():
     attribute.append(elem.attrib)
 print (tag)
 print (text)
+
 f = open("final_python.txt","w")
 converter_python()
 f.close()

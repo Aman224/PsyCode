@@ -1,3 +1,4 @@
+
 import ply.lex as lex
 import json
 
@@ -7,7 +8,8 @@ def addToLine(tagPair):
 
 def setSemantics(semantic):
 	global lineSemantic
-	lineSemantic = semantic
+	if lineSemantic == "":
+		lineSemantic = semantic
 	
 def addToTable():
 	global intend_level
@@ -24,20 +26,35 @@ def addToTable():
 	jsonLine=list()
 	jsonObj.append(objDict)
 
-tokens = ("MAIN","VAR","WHILE","TYPE","INPUT","ISGEQ","ISGREATER","ISLEQ","ISLESSER","ASSIGNMENT","EQUALS","PRINT","RETURN",\
-		"FUNCTION","PROGRAM","IF","ELSE","BOOLOPERATOR","OPERATOR","CONSTANT","STRING","IDENTIFIERS","OPENSQUARE","CLOSESQUARE","OPENCURLY",\
-			"CLOSECURLY","COMMA","NEWLINE","SPACES","UNKNOWN") 
+tokens = ("MAIN","VAR","DECLARE_FILTER","WHILE","TYPE","INPUT","INCREMENT","DECREMENT","ISGEQ","ISGREATER","ISLEQ","ISLESSER","ISDIVISIBLE","ISPRIME","ISFACTOR",\
+		"LIST_ASSIGNMENT","L_EQUAL_ASSIGN","WITH_VALUES","ASSIGNMENT","PRINT","RETURN","FUNCTION","FUNCTIONCALL","PROGRAM","IF","ELSEIF","ELSE","EQUAL","BOOLSTRINGS","BOOLOPERATOR",\
+			"OPERATOR","CONSTANT","STRING","IDENTIFIERS","OPENSQUARE","CLOSESQUARE","OPENCURLY","CLOSECURLY","COMMA",\
+				"NEWLINE","SPACES","UNKNOWN") 
 #Direct Replacemet
 
 def t_MAIN(t):
-	r'[(function)|program]\s+[mM]ain'
+	r'[(function)|(program)]+\s+[mM]ain[(\(\))]*'
 	print("<main>")
-	setSemantics="main"
-	addToLine("main","main")
+	setSemantics("main")
+	addToLine(("main","main"))
 
 def t_VAR(t):
 	r'[vV]ariable|of'
 	print("",end="")
+
+def t_DECLARE_FILTER(t):
+	r'([Dd]eclare.*|(int|float|char).*)'
+	print("ignored")
+
+def t_BREAK(t):
+	r'[Bb]reak'
+	setSemantics("UnconditionalControl")
+	addToLine(("break","break"))
+
+def t_CONTINUE(t):
+	r'[cC]ontinue'
+	setSemantics("UnconditionalControl")
+	addToLine(("continue","continue"))
 
 def t_WHILE(t):
 	r'while'
@@ -45,46 +62,98 @@ def t_WHILE(t):
 	setSemantics("while")
 
 def t_TYPE(t):
-	r'type\s[a-z]+'
+	r'type\s+[a-z]+'
 	print("<type>",end="")
 	addToLine(("type",t.value.split()[1]))
 
 def t_INPUT(t):
-	r'with\sinput[(\staken)]*\sfrom\suser'
+	r'with\s+input[(\s+taken)]*\s+from\suser'
 	print("<input>")
 	addToLine(("input",t.value))
 
+def t_INCREMENT(t):
+	r'[Ii]ncrement\s+[a-zA-Z][0-9a-zA-Z_]*\s+by'
+	print("<UniqueAssignment><identifier>")
+	setSemantics("UAssignment")
+	_,var,_=t.value.split()
+	addToLine(("identifier",var))
+	addToLine(("operator","+"))
+
+def t_DECREMENT(t):
+	r'[Dd]ecrement\s+[a-zA-Z][0-9a-zA-Z_]*\s+by'
+	print("<UniqueAssignment><identifier>")
+	setSemantics("UAssignment")
+	_,var,_= t.value.split()
+	addToLine(("identifier",var))
+	addToLine(("operator","-"))
+
+def t_UASSIGNEMNT(t):
+	r'\+=|\-=|\*=|/=|%='
+	setSemantics("UAssignment")
+	print("<Uoperator>",end="")
+	addToLine(("operator",t.value[0]))
+
+def t_SIEQUAL(t):
+	r'is\s+equal\s+to'
+	print("<BoolOp>",end="")
+	addToLine(("boolOp","eq"))
+
 def t_ISGEQ(t):
-	r'is\sgreater\sthan\sor\sequal\sto'
-	print("<boolOp>",end="")
+	r'is\s+greater\s+than\sor\sequal\s+to'
+	print("<BoolOp>",end="")
 	addToLine(("boolOp","ge"))
 
 def t_ISGREATER(t):
-	r'is\s[gG]reater\sthan'
+	r'is\s+[gG]reater\s+than'
 	print("<boolOp>",end="")
 	addToLine(("boolOp","g"))
 
 def t_ISLEQ(t):
-	r'is\s[lL]ess[er]*\sthan\sor\sequal\sto'
+	r'is\s+[lL]ess[er]*\s+than\s+or\s+equal\s+to'
 	print("<boolOp>",end="")
 	addToLine(("boolOp","le"))
 
 def t_ISLESSER(t):
-	r'is\s[lL]ess[er]*\sthan'
+	r'is\s+[lL]ess[er]*\s+than'
 	print("<boolOp>",end="")
 	addToLine(("boolOp","l"))
 
+def t_ISDIVISIBLE(t):
+	r'is\s+divisible\s+by|is\s+a\s+multiple\s+of'
+	print("<boolStr>",end="")
+	addToLine(("boolStr","d"))
+
+def t_ISPRIME(t):
+	r'is\s+prime'
+	print("<boolStr>",end="")
+	addToLine(("boolStr","p"))
+
+def t_ISFACTOR(t):
+	r'is\s+a\s+factor\s+of'
+	print("<boolStr>",end="")
+	addToLine(("boolStr","f"))
+
+def t_LIST_ASSIGNMENT(t):
+	r'(set|[Aa]ssign|initiali[zs]e|accept)\s*a\s*list'
+	print("<assignment><list>")
+	setSemantics("L_assignment")
+
+def t_L_EQUAL_ASSIGN(t):
+	r'[a-zA-Z0-9][a-zA-Z0-9]*\s*=\s*\['
+	print("<assignment><list>")
+	addToLine(("list_name",t.value.split("=")[0].rstrip().lstrip()))
+	setSemantics("L_assignment")
+
+def t_WITH_VAUES(t):
+	r'with\svalues?'
+	print("<values|",end ="")
+	# ip = t.value.split()[2:]
+	# addToLine(("values"))
+
 def t_ASSIGNMENT(t):
-	r'set|[Aa]ssign|initiali[zs]e'
+	r'set|[Aa]ssign|initiali[zs]e|accept'
 	print("<assign>",end="")
 	# addToLine(("assign",t.value))
-	setSemantics("assignment")
-	#return t
-
-def t_EQUALS(t):
-	r'=|[eE]quals|to|as'
-	print('= ',end ="")
-	# addToLine(("=",t.value))
 	setSemantics("assignment")
 	#return t
 
@@ -97,14 +166,28 @@ def t_RETURN(t):
 	r'[Rr]eturn'
 	print("<return>",end="")
 	setSemantics("return")
-	addToLine(("return",t.value))
+	# addToLine(("return",t.value))
 
 #Top level stuff
+
 def t_FUNCTION(t):
-	r'[Ff]unction'
-	print("<function>",end ="")
-	# addToLine(("function",t.value))
+	r'(?:[cC]reate\sa)?\s*function\s*[a-zA-Z][a-zA-Z0-9_]*\('
+	ip = t.value[:-1]
+	print("<function>")
 	setSemantics("function")
+	ip = ip.split("(")
+	fname = ip[0].split()[-1]
+	# args = ip[1].split(",")
+	addToLine(("Function_name",fname))
+	# addToLine(("Arguments_list",args))
+
+def t_FUNCTIONCALL(t):
+	r'([cC]all\s[fF]unction)?\s*[a-zA-Z][0-9a-zA-Z_]*\('
+	print("<function_call>",end ="")
+	ip = t.value[:-1]
+	fname = ip.split()[-1]
+	addToLine(("function_call",fname))
+	setSemantics("function_call")
 	#return t
 
 def t_PROGRAM(t):
@@ -121,24 +204,41 @@ def t_IF(t):
 	# addToLine(("if",t.value))
 	setSemantics("if")
 
+def t_ELIF(t):
+	r'([Ee]lse\s+[Ii]f|[eE]lif)'
+	print("<elif>",end="")
+	setSemantics("elif")
+	
 def t_ELSE(t):
-	r'[Ee]lse'
+	r'[Ee]lse:?'
 	print("<else>",end="")
 	addToLine(("else",t.value))
 	setSemantics("else")
 
 
 #Mid level Stuff
+def t_BOOLSTRINGS(t):
+	r'is\s+divisible\s+by|is\s+a\smultiple\s+of'
+	print("<boolStr>",end="")
+	addToLine(("boolStr",t.value))
 
 def t_BOOLOPERATOR(t):
-	r'>=|<=|!=|<|>|='
+	r'>=|<=|!=|<|>|==|[Ee]quals|[aA]nd|[oO]r|[Nn]ot\s+equal\s+to|[Nn]ot'
 	print("<boolOp>",end="")
-	boolDict ={"<":"l",">":"g","==":"eq",\
-				"<=":"le",">=":"ge"}
-	addToLine(("boolOp",boolDict[t.value]))
+	boolDict ={"<":"l",">":"g","==":"eq","!=":"!=",\
+				"equals":"eq","<=":"le",">=":"ge",\
+				"and":"and","or":"or","not equal to":"!=","not":"!="}
+	addToLine(("boolOp",boolDict[t.value.lower()]))
+
+def t_EQUAL(t):
+	r'=|to|as'
+	print('= ',end ="")
+	# addToLine(("=",t.value))
+	setSemantics("assignment")
+	#return t
 
 def t_OPERATOR(t):
-	r'\+|\-|\\|\*\*|\*'
+	r'\+\+|\-\-|\+|\-|/|\*\*|\*|%'
 	print("<operator>",end="")
 	addToLine(("operator",t.value))
 	#return t
@@ -151,10 +251,10 @@ def t_CONSTANT(t):
 
 #Bottom level 
 def t_STRING(t):
-	r'[\"\“](\\.|[^"\\])*[\"\”]'
+	# r'[\"\“](\\.|[^"\\|[^”])*["|”]'
+	r'([\"\“])(.|[^"“”])*[\0”"]'
 	print("<string>",end="")
-	addToLine(("string",t.value))
-	#return t
+	addToLine(("string",t.value[1:-1])) # decide if quotes are needed
 
 def t_IDENTIFIER(t):
 	r'[a-zA-Z][0-9a-zA-Z_]*'
@@ -166,12 +266,12 @@ def t_IDENTIFIER(t):
 def t_OPENSQUARE(t):
 	r'\['
 	print("<OpenSquareOp>",end="")
-	addToLine("OpenSquareOp",t.value)
+	addToLine(("OpenSquareOp",t.value))
 
 def t_CLOSESQUARE(t):
 	r'\]'
 	print("<CloseSquareOp>",end="")
-	addToLine("CloseSquareOp",t.value)
+	addToLine(("CloseSquareOp",t.value))
 
 def t_OPENCURLY(t):
 	r'\('
@@ -199,8 +299,9 @@ def t_SPACES(t):
 	print(t.value,end="")
 
 def t_UNKNOWN(t):
-	r'.*[\(\)=+<]'
-	print("$",t,end ="")
+	r'.*[:\(\)=+<]'
+	# print("$",t,end ="")
+	print("")
 	# addToLine(t.value)
 	return 
 
@@ -217,17 +318,11 @@ def intendChecker(line,intend_level):
 	print(new_intend_level,end=":")
 	if new_intend_level > intend_level:
 		print("\t"*(new_intend_level)+"<body>")
-		# print(new_intend_level,end=":")
-		# setSemantics("body")
-		# addToLine(("Beg","body"))
-		# addToTable()
+
 	count = 0
 	while (new_intend_level+count) < intend_level:
-		print("\t"*(intend_level-count),"<done></done>")
+		# print("\t"*(intend_level-count),"<done></done>")
 		print("\t"*(intend_level-count),"</body>")
-		# setSemantics("body")
-		# addToLine(("End","body"))
-		# addToTable()
 		count+=1
 
 	return new_intend_level
@@ -244,9 +339,6 @@ if __name__ == "__main__":
 			intend_level = intendChecker(line,intend_level)
 			lexer.input(line)
 			# print("\t"*intend_level,end="")
-			# while tok:= lexer.token():
-			# 	# json_file.append(tok.value)
-			# 	pass
 			while True: 
 				tok = lexer.token()
 				if tok:

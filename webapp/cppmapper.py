@@ -7,6 +7,10 @@ def RecursiveTag(Tree,parent=None):
     text=Tree.text
     global variable_list
     global variable
+    global expression
+    global isPrime
+    global isMultiple
+    global isDivisible
     #if(len(children)==0):
     #    pass
     #else:
@@ -281,13 +285,13 @@ isDivisible=0
 isMultiple=0
 variable=''
 expression=''
-file="xmlfile2.xml"
+file="Final.xml"
 tree = ET.parse(file)
 root = tree.getroot()
-f = open("final_python.txt","w")
+f = open("final_output.txt","w")
 RecursiveTag(root)
 if isPrime==1:
 	with open("prime.txt") as f:
-		with open("final_python.txt", "a") as f1:
+		with open("final_output.txt", "a") as f1:
 			for line in f:
 				f1.write(line)

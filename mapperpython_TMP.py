@@ -204,6 +204,6 @@ file = "Final.xml"
 file = file.lstrip()
 mytree = ET.parse(file)   
 myroot = mytree.getroot()
-f = open("final_output.txt","w")
+f = open("final_python.txt","w")
 RecPy(myroot)
 

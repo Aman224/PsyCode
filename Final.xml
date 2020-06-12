@@ -1,1 +1,13 @@
 <program>
+
+
+
+<assignment>
+<variable>
+<variable_name>a</variable_name>
+</variable>
+<value>
+<constant>10</constant>
+</value>
+</assignment>
+</program>

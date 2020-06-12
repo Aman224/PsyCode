@@ -1,129 +1,15 @@
 [
     {
         "intendLevel": 0,
-        "tag": "program",
+        "tag": "assignment",
         "data": [
-            [
-                "identifier",
-                "main"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "",
-        "data": [
-            [
-                "identifier",
-                "declare"
-            ],
-            [
-                "identifier",
-                "s"
-            ],
             [
                 "identifier",
                 "a"
             ],
             [
-                "comma",
-                ","
-            ],
-            [
-                "identifier",
-                "b"
-            ],
-            [
-                "comma",
-                ","
-            ],
-            [
-                "identifier",
-                "c"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "assignment",
-        "data": [
-            [
-                "identifier",
-                "accept"
-            ],
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "identifier",
-                "input"
-            ],
-            [
-                "identifier",
-                "from"
-            ],
-            [
-                "identifier",
-                "user"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "assignment",
-        "data": [
-            [
-                "identifier",
-                "accept"
-            ],
-            [
-                "identifier",
-                "b"
-            ],
-            [
-                "identifier",
-                "input"
-            ],
-            [
-                "identifier",
-                "from"
-            ],
-            [
-                "identifier",
-                "user"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "assignment",
-        "data": [
-            [
-                "identifier",
-                "c"
-            ],
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "operator",
-                "+"
-            ],
-            [
-                "identifier",
-                "b"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "print",
-        "data": [
-            [
-                "identifier",
-                "c"
+                "constant",
+                "10"
             ]
         ]
     }

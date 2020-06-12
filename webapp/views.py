@@ -45,15 +45,32 @@ class HomeView(TemplateView):
 
             # Language
             os.system("python ./webapp/mapperpython.py")
-            f = open('final_python.txt', 'r')
-            data = f.read()
-            f.close()
 
         # Language module for C
-        if(language == 'c'):
+        elif(language == 'c'):
+            # Transmogrify
             os.system("python ./webapp/CLexer.py")
             os.system("python ./webapp/CMapStateMachine.py > Final.xml")
 
+            # Language
+            os.system("python ./webapp/cmapper.py")
+
+
+        # Language module for Cpp
+        elif(language == 'c++'):
+            # Transmogrify
+            os.system("python ./webapp/CLexer.py")
+            os.system("python ./webapp/CMapStateMachine.py > Final.xml")
+
+            # Language
+            os.system("python ./webapp/cppmapper.py")
+
+        # Read output
+        f = open('final_output.txt', 'r')
+        data = f.read()
+        f.close()
+
+        os.system("> final_output.txt")
 
         context = {'form': form, 'object': data}
 

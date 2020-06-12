@@ -23,7 +23,7 @@
 
 <body class="light-mode" id="body">
 
-    <div id="overlay" onclick="off()">
+    <div id="overlay" onclick="off()" style="display: none">
         <div id="text">
             <p class="splash-heading">PSEDUOCODE TO CODE</p>
         </div>
@@ -117,7 +117,7 @@
 
     // Script for lable positioning
     function labelPosition() {
-        var width = $(".contentArea").width() - $(".form-group").width() -225 - 198;
+        var width = $(".contentArea").width() - $(".form-group").width() - 225 - 198;
 
         $("#lang-sel-label").css("left", width);
     }
@@ -135,13 +135,16 @@
         if (sessionStorage.getItem("is_reloaded")) {
             off();
         }
+        else {
+            on();
+        }
         sessionStorage.setItem("is_reloaded", true);
     });
 
 
 
     function on() {
-    document.getElementById("overlay").style.display = "none";
+    document.getElementById("overlay").style.display = "block";
     }
 
     function off() {
