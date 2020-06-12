@@ -1,6 +1,6 @@
 # PsyCode
 
-> Using python 3.6
+> Using python 3.8
 
 ## Instructions
 
