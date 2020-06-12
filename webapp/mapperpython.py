@@ -1,77 +1,107 @@
-
 import xml.etree.ElementTree as ET
 
 e_store = 0 				
 v_store = 0					
 p_value = 0
 p_store = 0
-assignment_set = 0
 a_store = 0
 value_set  = 0
 condition_set = 0
 indendation_count = 0 
+set_divisible = 0
+list_set = 0
 body_list = []
 parent_list = []
 expression_list = []
+value_list = []
 
 
 def RecPy(Tree):
-	global e_store,v_store,condition_set,indendation_count,a_store
-	global p_value,assignment_set,value_set,p_value,p_store,f_call_store
+	global e_store,v_store,condition_set,indendation_count,a_store,set_divisible
+	global p_value,value_set,p_value,p_store,f_call_store,list_set
 	type_val = 0
 	children = list(Tree)     
 	print(children)
 	for child in children:
-		if(child.tag == 'expression'):
-						
+
+		if(child.tag == 'main'):
+			f.write('if __name__ == "__main__":\n')
+		
+		elif(child.tag == 'expression'):
 			e_store = int(children.index(child)==len(children)-1)	
 			expression_list.insert(0,e_store)
 			if(not(len(list(child)))):
-				for i in range(len(parent_list)):
+				if(parent_list[0] == 'args' and expression_list[0]):
 					f.write(')')
 					parent_list.pop(0)
 					expression_list.pop(0)
-				f.write('\n')
+				if(len(parent_list) and parent_list[0] == 'list'):
+					if(not(expression_list[0])):
+						f.write(',')
+						expression_list.pop(0)
+					elif(expression_list[0]):
+						f.write(']')
+						parent_list.pop(0)
+						expression_list.pop(0)
+				if(len(parent_list) and (parent_list[0] == 'value' or parent_list[0] == 'if' or parent_list[0] == 'elif' or parent_list[0] == 'while') and not(expression_list)):
+					if(value_list[0]):
+						if(parent_list[0] == 'if' or parent_list[0] == 'elif' or parent_list[0] == 'while'):
+							f.write(':')
+						f.write('\n')
+						parent_list.pop(0)
+					value_list.pop(0)
+				elif(not(len(parent_list)) and not(expression_list)):
+					f.write('\n')
+
+
+
+			
+			
+				
 
 
 		elif(child.tag == 'variable'):
-			v_store = int(children.index(child)==len(children)-1)	
+			v_store = int(children.index(child)==len(children)-1)
+			assignment_value_check(int(children.index(child)==len(children)-1))	
+
 
 		elif(child.tag == 'print'):
 			p_store = int(children.index(child)==len(children)-1)
 			parent_list.insert(0,"print")
-			for i in range(0,indendation_count):
-				f.write('	')
-			f.write('print(')
+			indent = "	" * indendation_count
+
+			f.write(indent+'print(')
 			p_value = 1
 			
 		elif(child.tag == 'assignment'):
 			a_store = int(children.index(child)==len(children)-1)
-			for i in range(0,indendation_count):
-				f.write('	')
-			assignment_set = 1
+			indent = "	" * indendation_count
+			f.write(indent)
 			
 		elif(child.tag == 'value'):
+			f.write(' = ')
+			parent_list.insert(0,"value")
 			value_set = 1
 		
 	
-			
+		elif(child.tag == 'function'):
+			f.write('def ')
+			condition_set = 1
 		
 		elif(child.tag == 'function_name'):
 			f.write(child.text+'(')
 
 		elif(child.tag == 'function_call'):
-			if(value_set):
-				f_call_store = int(children.index(child)==len(children)-1)
+			assignment_value_check(int(children.index(child)==len(children)-1))
+			
 
 		elif(child.tag == 'if' or child.tag == 'elif' or child.tag == 'while'):
-			for i in range(0,indendation_count):
-				f.write('	')
-			f.write(child.tag+' ')
+			parent_list.insert(0,child.tag)
+			indent = "	" * indendation_count
+			f.write(indent+child.tag+' ')
 		elif(child.tag == 'else'):
-			for i in range(0,indendation_count):
-				f.write('	')
-			f.write('else:\n')
+			indent = "	" * indendation_count
+			f.write(indent+'else:\n')
 
 		elif(child.tag == 'condition'):
 			condition_set = 1
@@ -82,10 +112,15 @@ def RecPy(Tree):
 
 		elif(child.tag == 'string'):
 			f.write('"'+child.text+'"')
+			assignment_value_check(int(children.index(child)==len(children)-1))
 			setter(int(children.index(child)==len(children)-1))
 		
 		elif(child.tag == 'constant'):
 			f.write(child.text)
+			if(set_divisible):
+				f.write(' == 0')
+				set_divisible = 0
+			assignment_value_check(int(children.index(child)==len(children)-1))
 			setter(int(children.index(child)==len(children)-1))
 		
 
@@ -94,12 +129,18 @@ def RecPy(Tree):
 		
 		elif(child.tag == 'var_name'):
 			f.write(child.text)
-			if(assignment_set):
-				f.write(' = ')
-				assignment_set = 0
+			if(not(int(children.index(child)==len(children)-1)) and children[children.index(child)+1].tag == "index"):
+				f.write('['+children[children.index(child)+1].text+']')
 			setter(v_store)
-			
-			
+		
+
+		elif(child.tag == 'break' or child.tag == 'continue'):
+			f.write(child.tag+'\n')
+
+		elif(child.tag == 'return'):
+			f.write("	" * indendation_count+'return ')
+			parent_list.insert(0,"return")
+
 		elif(child.tag == 'operator'):
 			if(child.text == 'eq'):
 				f.write(' == ')
@@ -113,8 +154,12 @@ def RecPy(Tree):
 				f.write(' < ')
 			elif(child.text == 'le'):
 				f.write(' <= ')
+			elif(child.text == 'd'):
+				f.write(' % ')
+				set_divisible = 1
 			else:
 				f.write(child.text)
+			assignment_value_check(int(children.index(child)==len(children)-1))
 			setter(int(children.index(child)==len(children)-1))
 		
 		elif(child.tag == 'type'):
@@ -123,11 +168,18 @@ def RecPy(Tree):
 
 		elif(child.tag == 'input'):
 			f.write('input()')
+			parent_list.pop(0)
 			if(type_val):
 				f.write(')')
 				type_val = 0
 			f.write('\n')
 			value_set = 0				#input being the last tag in an assignment with input tag
+
+		elif(child.tag == 'list'):
+			f.write('[')
+			parent_list.insert(0,"list")
+			assignment_value_check(int(children.index(child)==len(children)-1))
+			list_set = 1
 
 
 		elif(child.tag == 'function_name'):
@@ -136,13 +188,17 @@ def RecPy(Tree):
 		elif(child.tag == 'args'):
 			parent_list.insert(0,"args")
 
+		
+
 		print(child.tag," ",indendation_count," ",p_store," ",body_list)
 		print('\n')
 		RecPy(child)
 
 	
 def setter(flag):
-	global value_set,p_value,e_store,condition_set,p_store,a_store,f_call_store
+	global value_set,p_value,e_store,condition_set,p_store,a_store,f_call_store,list_set
+	
+
 	
 	
 	if(len(parent_list) and parent_list[0] == 'args'):
@@ -151,10 +207,14 @@ def setter(flag):
 			parent_list.pop(0)
 			expression_list.pop(0)
 			if(len(parent_list) == 0 and len(expression_list) == 0):
+				if(condition_set):
+					f.write(':')
+					condition_set = 0
 				f.write('\n') 
 		elif(not(expression_list[0]) and flag):
 			f.write(',')
 			expression_list.pop(0)
+
 	
 	if(len(parent_list) and parent_list[0] == 'print'):
 		if(expression_list[0] and flag):
@@ -166,19 +226,43 @@ def setter(flag):
 		elif(not(expression_list[0]) and flag):
 			f.write(',')
 			expression_list.pop(0)
-	
 
-	if(value_set):
-		if(flag):
+	if(len(parent_list) and parent_list[0] == 'list'):
+		if(expression_list[0] and flag):
+			f.write(']')
+			parent_list.pop(0)
+			expression_list.pop(0)
+		elif(not(expression_list[0]) and flag):
+			f.write(',')
+			expression_list.pop(0)
+
+
+	if(len(parent_list) and parent_list[0] == 'return'):
+		if(expression_list[0] and flag):
 			f.write('\n')
-			value_set = 0				# check if assignment ends
+			indendation_check(0,1)
+			parent_list.pop(0)
+			expression_list.pop(0)
+		elif(not(expression_list[0]) and flag):
+			f.write(',')
+			expression_list.pop(0)
+
+	if(len(parent_list) and parent_list[0] == "value"):
+		if(value_list[0]):
+			parent_list.pop(0)
+			value_set = 0
 			indendation_check(value_set,a_store)
-		
+			f.write('\n')
+		value_list.pop(0)
+
+	if(len(parent_list) and (parent_list[0] == "if" or parent_list[0] == "elif" or parent_list[0] == "while")):
+		if(value_list[0]):
+			parent_list.pop(0)
+			condition_set = 0
+			f.write(':\n')
+		value_list.pop(0)
 
 
-	if(condition_set and flag): 		
-		f.write(':\n')
-		condition_set = 0				# if condition ends
 
 
 		
@@ -198,6 +282,12 @@ def indendation_check(sets,flag):
 				indendation_count -= 2
 				body_list.pop(0)
 				body_list.pop(0)
+
+	
+def assignment_value_check(flag):
+	if(len(parent_list)):
+		if((parent_list[0] == 'value' or parent_list[0] == 'list' or parent_list[0] == 'if' or parent_list[0] == 'elif' or parent_list[0] == 'while') and not(len(expression_list)) and not(len(value_list))):
+			value_list.insert(0,flag)
 
 	
 file = "Final.xml"
