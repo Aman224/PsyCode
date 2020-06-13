@@ -363,7 +363,7 @@ f = open("final_output.txt","w")
 RecPy(myroot)
 if(set_prime):
 	with open("prime_function.txt", "r") as f:
-		with open("final_python.txt", "r+") as z:
+		with open("final_output.txt", "r+") as z:
 			o = z.read()
 			z.seek(0)
 			z.write(f.read()+'\n\n\n'+o)
