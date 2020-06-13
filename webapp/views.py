@@ -54,6 +54,8 @@ class HomeView(TemplateView):
 
             # Language
             os.system("python ./webapp/cmapper.py")
+            os.system("python ./webapp/FabulousC.py > temp.txt")
+            os.system("mv temp.txt final_output.txt")
 
 
         # Language module for Cpp
@@ -64,6 +66,9 @@ class HomeView(TemplateView):
 
             # Language
             os.system("python ./webapp/cppmapper.py")
+            os.system("python ./webapp/FabulousC.py > temp.txt")
+            os.system("mv temp.txt final_output.txt")
+
 
         # Read output
         f = open('final_output.txt', 'r')
