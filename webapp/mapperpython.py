@@ -213,8 +213,8 @@ def RecPy(Tree):
 				set_prime = 1
 			elif(child.text == '#m' or child.text == 'd'):
 				condition_list.append('%')
-				for i in range(0,len(condition_list)):
-					if(condition_list[i] in ())
+				# for i in range(0,len(condition_list)):
+				# 	if(condition_list[i] in ())
 			else:
 				f.write(child.text)
 			assignment_value_check(int(children.index(child)==len(children)-1))

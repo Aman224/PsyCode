@@ -1,22 +1,22 @@
 int a;
-a =20 ;
+= ;
 while(a > 10 )
 {
 
-	printf("%d ",a);
-	a =a + 10 ;
+	cout<<a<<endl;
+	= ;
 	if(a > 12 )
 	{
 
-		printf("Boobs ");
+		cout<<"Boobs"<<endl;
 		if(a eq 15 )
 		{
 
-			printf("Myass ");
+			cout<<"Myass"<<endl;
 			if(a > 69 )
 			{
 
-				printf("Nice ");
+				cout<<"Nice"<<endl;
 				
 				
 			}
@@ -24,14 +24,14 @@ while(a > 10 )
 			else if(a < 2 )
 			{
 
-				printf("Not nice ");
+				cout<<"Not nice"<<endl;
 				
 				
 			}
 
 			else{
 
-				printf("Nea ");
+				cout<<"Nea"<<endl;
 				
 				
 			}
@@ -42,9 +42,8 @@ while(a > 10 )
 
 		else{
 
-			printf("rohan  is %d ",a);
-			fname(10 a,10);
-			
+			cout<<"rohan  is"<<a<<endl;
+			fname(
 			
 		}
 
@@ -56,5 +55,4 @@ while(a > 10 )
 	
 }
 
-callme(12312 123123 1009123 12312,123123,1009123);
-pls();
+callme(pls(
