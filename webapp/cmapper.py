@@ -330,14 +330,14 @@ f = open("final_output.txt","w")
 RecursiveTag(root)
 f.close()
 if prime==1:
-    filenames = ['prime.txt', 'final_python.txt']
+    filenames = ['prime.txt', 'final_output.txt']
     with open('final.txt', 'w') as outfile:
         for fname in filenames:
             with open(fname) as infile:
                 for line in infile:
                     outfile.write(line)
                 outfile.write('\n')
-    os.rename('final.txt', 'final_python.txt')
+    os.rename('final.txt', 'final_output.txt')
     
 
 

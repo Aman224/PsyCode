@@ -2,18 +2,9 @@
 
 
 
-<var_declare>
-<variable_type>int</variable_type>
-<variable>
-<variable_name>a</variable_name>
-</variable>
-</var_declare>
-
-
-
 <assignment>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <value>
 <constant>20</constant>
@@ -25,7 +16,7 @@
 <while>
 <condition>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <operator>g</operator>
 <constant>10</constant>
@@ -38,8 +29,7 @@
 <print>
 <expression>
 <variable>
-<variable_type>int</variable_type>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 </expression>
 </print>
@@ -48,11 +38,11 @@
 
 <assignment>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <value>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <operator>+</operator>
 <constant>10</constant>
@@ -64,7 +54,7 @@
 <if>
 <condition>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <operator>g</operator>
 <constant>12</constant>
@@ -85,7 +75,7 @@
 <if>
 <condition>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <operator>eq</operator>
 <constant>15</constant>
@@ -106,7 +96,7 @@
 <if>
 <condition>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <operator>g</operator>
 <constant>69</constant>
@@ -128,7 +118,7 @@
 <elif>
 <condition>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 <operator>l</operator>
 <constant>2</constant>
@@ -173,8 +163,7 @@
 </expression>
 <expression>
 <variable>
-<variable_type>int</variable_type>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 </expression>
 </print>
@@ -183,7 +172,7 @@
 <args>
 <expression>
 <variable>
-<variable_name>a</variable_name>
+<var_name>a</var_name>
 </variable>
 </expression>
 <expression>

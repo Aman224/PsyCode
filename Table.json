@@ -1,22 +1,6 @@
 [
     {
         "intendLevel": 0,
-        "tag": "Declaration",
-        "data": [
-            [
-                "Type",
-                "int"
-            ],
-            [
-                "VarList",
-                [
-                    "a"
-                ]
-            ]
-        ]
-    },
-    {
-        "intendLevel": 0,
         "tag": "assignment",
         "data": [
             [
