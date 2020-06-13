@@ -10,19 +10,25 @@ condition_set = 0
 indendation_count = 0 
 set_divisible = 0
 list_set = 0
+set_prime = 0
 body_list = []
 parent_list = []
 expression_list = []
 value_list = []
+condition_list = []
+temp = " "
+
 
 
 def RecPy(Tree):
 	global e_store,v_store,condition_set,indendation_count,a_store,set_divisible
-	global p_value,value_set,p_value,p_store,f_call_store,list_set
+	global p_value,value_set,p_value,p_store,f_call_store,list_set,set_prime
 	type_val = 0
 	children = list(Tree)     
 	print(children)
 	for child in children:
+
+	
 
 		if(child.tag == 'main'):
 			f.write('if __name__ == "__main__":\n')
@@ -32,7 +38,12 @@ def RecPy(Tree):
 			expression_list.insert(0,e_store)
 			if(not(len(list(child)))):
 				if(parent_list[0] == 'args' and expression_list[0]):
-					f.write(')')
+					print("parent",parent_list)
+					if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+						print("sasa")
+						condition_list.append(')')
+					else:
+						f.write(')')
 					parent_list.pop(0)
 					expression_list.pop(0)
 				if(len(parent_list) and parent_list[0] == 'list'):
@@ -46,6 +57,10 @@ def RecPy(Tree):
 				if(len(parent_list) and (parent_list[0] == 'value' or parent_list[0] == 'if' or parent_list[0] == 'elif' or parent_list[0] == 'while') and not(expression_list)):
 					if(value_list[0]):
 						if(parent_list[0] == 'if' or parent_list[0] == 'elif' or parent_list[0] == 'while'):
+							print("sasa",condition_list)
+							temp_string = "".join(condition_list)
+							f.write(temp_string)
+							del condition_list[:]
 							f.write(':')
 						f.write('\n')
 						parent_list.pop(0)
@@ -53,6 +68,7 @@ def RecPy(Tree):
 				elif(not(len(parent_list)) and not(expression_list)):
 					f.write('\n')
 
+			print("exp",condition_list)	
 
 
 			
@@ -89,7 +105,12 @@ def RecPy(Tree):
 			condition_set = 1
 		
 		elif(child.tag == 'function_name'):
-			f.write(child.text+'(')
+			if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+				condition_list.append(child.text)
+				condition_list.append('(')
+				print("fname",condition_list)
+			else:
+				f.write("	"*indendation_count+child.text+'(')
 
 		elif(child.tag == 'function_call'):
 			assignment_value_check(int(children.index(child)==len(children)-1))
@@ -111,15 +132,23 @@ def RecPy(Tree):
 			body_list.insert(0,int(children.index(child)==len(children)-1))
 
 		elif(child.tag == 'string'):
-			f.write('"'+child.text+'"')
+			if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+				condition_list.append('"'+child.text+'"')
+			else:
+				f.write('"'+child.text+'"')
 			assignment_value_check(int(children.index(child)==len(children)-1))
 			setter(int(children.index(child)==len(children)-1))
 		
 		elif(child.tag == 'constant'):
-			f.write(child.text)
-			if(set_divisible):
-				f.write(' == 0')
-				set_divisible = 0
+			if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+				condition_list.append(child.text)
+			else:
+				f.write(child.text)
+
+			print("constant",condition_list)
+			# if(set_divisible):
+			# 	f.write(' == 0')
+			# 	set_divisible = 0
 			assignment_value_check(int(children.index(child)==len(children)-1))
 			setter(int(children.index(child)==len(children)-1))
 		
@@ -128,14 +157,17 @@ def RecPy(Tree):
 
 		
 		elif(child.tag == 'var_name'):
-			f.write(child.text)
+			if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+				condition_list.append(child.text)
+			else:
+				f.write("	" * indendation_count+child.text)
 			if(not(int(children.index(child)==len(children)-1)) and children[children.index(child)+1].tag == "index"):
 				f.write('['+children[children.index(child)+1].text+']')
 			setter(v_store)
 		
 
 		elif(child.tag == 'break' or child.tag == 'continue'):
-			f.write(child.tag+'\n')
+			f.write("	" * indendation_count+child.tag+'\n')
 
 		elif(child.tag == 'return'):
 			f.write("	" * indendation_count+'return ')
@@ -143,20 +175,46 @@ def RecPy(Tree):
 
 		elif(child.tag == 'operator'):
 			if(child.text == 'eq'):
-				f.write(' == ')
+				if(parent_list[-1] == 'if'):
+					condition_list.append(' == ')
+				else:
+					f.write(' == ')
 			elif(child.text == 'and' or child.text == 'or'):
-				f.write(' '+child.text+' ')
+				if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+					condition_list.append(' '+child.text+' ')
+				else:
+					f.write(' '+child.text+' ')
 			elif(child.text == 'g'):
-				f.write(' > ')
+				if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+					condition_list.append(' > ')
+				else:
+					f.write(' > ')
 			elif(child.text == 'ge'):
-				f.write(' >= ')
+				if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while' ):
+					condition_list.append(' >= ')
+				else:
+					f.write(' >= ')
 			elif(child.text == 'l'):
-				f.write(' < ')
+				if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while' ):
+					condition_list.append(' < ')
+				else:
+					f.write(' < ')
 			elif(child.text == 'le'):
-				f.write(' <= ')
-			elif(child.text == 'd'):
-				f.write(' % ')
-				set_divisible = 1
+				if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+					condition_list.append(' <= ')
+				else:
+					f.write(' == ')
+			elif(child.text == '#p'):
+				condition_list.append('isPrime(')
+				store = condition_list[-2]
+				del condition_list[-2]
+				condition_list.append(store)
+				condition_list.append(')')
+				set_prime = 1
+			elif(child.text == '#m' or child.text == 'd'):
+				condition_list.append('%')
+				for i in range(0,len(condition_list)):
+					if(condition_list[i] in ())
 			else:
 				f.write(child.text)
 			assignment_value_check(int(children.index(child)==len(children)-1))
@@ -181,10 +239,6 @@ def RecPy(Tree):
 			assignment_value_check(int(children.index(child)==len(children)-1))
 			list_set = 1
 
-
-		elif(child.tag == 'function_name'):
-			f.write(child.text+'(')
-
 		elif(child.tag == 'args'):
 			parent_list.insert(0,"args")
 
@@ -194,7 +248,9 @@ def RecPy(Tree):
 		print('\n')
 		RecPy(child)
 
+
 	
+
 def setter(flag):
 	global value_set,p_value,e_store,condition_set,p_store,a_store,f_call_store,list_set
 	
@@ -203,7 +259,10 @@ def setter(flag):
 	
 	if(len(parent_list) and parent_list[0] == 'args'):
 		if(expression_list[0] and flag):
-			f.write(')')
+			if(parent_list[-1] == 'if' or parent_list[-1] == 'elif' or parent_list[-1] == 'while'):
+				condition_list.append(')')
+			else:
+				f.write(')')
 			parent_list.pop(0)
 			expression_list.pop(0)
 			if(len(parent_list) == 0 and len(expression_list) == 0):
@@ -212,7 +271,10 @@ def setter(flag):
 					condition_set = 0
 				f.write('\n') 
 		elif(not(expression_list[0]) and flag):
-			f.write(',')
+			if(parent_list[-1] == 'if'):
+				condition_list.append(',')
+			else:
+				f.write(',')
 			expression_list.pop(0)
 
 	
@@ -257,6 +319,10 @@ def setter(flag):
 
 	if(len(parent_list) and (parent_list[0] == "if" or parent_list[0] == "elif" or parent_list[0] == "while")):
 		if(value_list[0]):
+			temp_string = "".join(condition_list)
+			f.write(temp_string)
+			print("fin",condition_list)
+			del condition_list[:]
 			parent_list.pop(0)
 			condition_set = 0
 			f.write(':\n')
@@ -288,7 +354,6 @@ def assignment_value_check(flag):
 	if(len(parent_list)):
 		if((parent_list[0] == 'value' or parent_list[0] == 'list' or parent_list[0] == 'if' or parent_list[0] == 'elif' or parent_list[0] == 'while') and not(len(expression_list)) and not(len(value_list))):
 			value_list.insert(0,flag)
-
 	
 file = "Final_XML.xml"
 file = file.lstrip()
@@ -296,3 +361,9 @@ mytree = ET.parse(file)
 myroot = mytree.getroot()
 f = open("final_output.txt","w")
 RecPy(myroot)
+if(set_prime):
+	with open("prime_function.txt", "r") as f:
+		with open("final_python.txt", "r+") as z:
+			o = z.read()
+			z.seek(0)
+			z.write(f.read()+'\n\n\n'+o)
