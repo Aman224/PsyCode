@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 v_store = p_store = a_store =  0							#check the occurence of variable,print and assignment tag respectively			
 condition_set = 0
 indendation_count = 0 
-set_prime = set_multiple_divisible = set_factor = 0      				#occurence of prime,multiple-divisble and factor operators 
+set_prime = set_multiple_divisible = set_factor = 0      	#occurence of prime,multiple-divisble and factor operators 
 body_list = []
 parent_list = []
 expression_list = []
@@ -142,7 +142,7 @@ def RecPy(Tree):
 				f.write('['+children[store+1].text+']')
 			setter(v_store)
 		
-		
+
 		elif(child.tag == 'break' or child.tag == 'continue'):
 			f.write("	" * indendation_count+child.tag+'\n')
 			indendation_check(0,1)
@@ -312,37 +312,38 @@ def setter(flag):
 			value_list.pop(0)
 
 	if(len(parent_list) and parent_list[0] in ("if","elif","while")):
-		if(value_list[0]):
-			r_value = len(condition_list)
-			if(set_factor):
-				if(not(l_value)):
-					for i in range(l_value+1,r_value):
-						r_temp += condition_list[i]
-					del condition_list[1:r_value]
-					condition_list.insert(0,r_temp)
-					condition_list.insert(r_value,l_temp)
-				elif(l_value):
-					for i in range(l_value+2,r_value):
-						r_temp += condition_list[i]
-					del condition_list[l_value+2:r_value]
-					condition_list.insert(l_value+1,r_temp)
-					condition_list.insert(r_value,l_temp)
-				condition_list.insert(len(condition_list),' == ')
-				condition_list.insert(len(condition_list),' 0 ')
-				l_temp = ""
-				r_temp = ""
-				set_factor = 0
-			if(set_multiple_divisible):
-				condition_list.insert(r_value,' == ')
-				condition_list.insert(len(condition_list),' 0 ')
-				set_multiple_divisible = 0
-			temp_string = "".join(condition_list)
-			f.write(temp_string)
-			del condition_list[:]
-			parent_list.pop(0)
-			condition_set = 0
-			f.write(':\n')
-		value_list.pop(0)
+		if(len(value_list)):
+			if(value_list[0]):
+				r_value = len(condition_list)
+				if(set_factor):
+					if(not(l_value)):
+						for i in range(l_value+1,r_value):
+							r_temp += condition_list[i]
+						del condition_list[1:r_value]
+						condition_list.insert(0,r_temp)
+						condition_list.insert(r_value,l_temp)
+					elif(l_value):
+						for i in range(l_value+2,r_value):
+							r_temp += condition_list[i]
+						del condition_list[l_value+2:r_value]
+						condition_list.insert(l_value+1,r_temp)
+						condition_list.insert(r_value,l_temp)
+					condition_list.insert(len(condition_list),' == ')
+					condition_list.insert(len(condition_list),' 0 ')
+					l_temp = ""
+					r_temp = ""
+					set_factor = 0
+				if(set_multiple_divisible):
+					condition_list.insert(r_value,' == ')
+					condition_list.insert(len(condition_list),' 0 ')
+					set_multiple_divisible = 0
+				temp_string = "".join(condition_list)
+				f.write(temp_string)
+				del condition_list[:]
+				parent_list.pop(0)
+				condition_set = 0
+				f.write(':\n')
+			value_list.pop(0)
 
 		
 def indendation_check(sets,flag):
