@@ -1,6 +1,50 @@
 [
     {
         "intendLevel": 0,
+        "tag": "main",
+        "data": [
+            [
+                "main",
+                "main"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "Declaration",
+        "data": [
+            [
+                "Type",
+                "int"
+            ],
+            [
+                "VarList",
+                [
+                    "b",
+                    "a"
+                ]
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "Declaration",
+        "data": [
+            [
+                "Type",
+                "float"
+            ],
+            [
+                "VarList",
+                [
+                    "d",
+                    "c"
+                ]
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
         "tag": "assignment",
         "data": [
             [
@@ -9,57 +53,25 @@
             ],
             [
                 "constant",
+                "10"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "assignment",
+        "data": [
+            [
+                "identifier",
+                "b"
+            ],
+            [
+                "constant",
                 "20"
             ]
         ]
     },
     {
-        "intendLevel": 0,
-        "tag": "while",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "g"
-            ],
-            [
-                "constant",
-                "10"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "print",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "UAssignment",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "operator",
-                "+"
-            ],
-            [
-                "constant",
-                "10"
-            ]
-        ]
-    },
-    {
         "intendLevel": 1,
         "tag": "if",
         "data": [
@@ -72,8 +84,8 @@
                 "g"
             ],
             [
-                "constant",
-                "12"
+                "identifier",
+                "b"
             ]
         ]
     },
@@ -82,97 +94,13 @@
         "tag": "print",
         "data": [
             [
-                "string",
-                "Boobs"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 2,
-        "tag": "if",
-        "data": [
-            [
                 "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "eq"
-            ],
-            [
-                "constant",
-                "15"
+                "c"
             ]
         ]
     },
     {
-        "intendLevel": 3,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Myass"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
-        "tag": "if",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "g"
-            ],
-            [
-                "constant",
-                "69"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 4,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Nice"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
-        "tag": "elif",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "l"
-            ],
-            [
-                "constant",
-                "2"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 4,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Not nice"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
+        "intendLevel": 1,
         "tag": "else",
         "data": [
             [
@@ -182,114 +110,12 @@
         ]
     },
     {
-        "intendLevel": 4,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Nea"
-            ]
-        ]
-    },
-    {
         "intendLevel": 2,
-        "tag": "else",
-        "data": [
-            [
-                "else",
-                "else"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
         "tag": "print",
         "data": [
             [
-                "string",
-                "rohan  is"
-            ],
-            [
-                "comma",
-                ","
-            ],
-            [
                 "identifier",
-                "a"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
-        "tag": "function_call",
-        "data": [
-            [
-                "function_call",
-                "fname"
-            ],
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "comma",
-                ","
-            ],
-            [
-                "constant",
-                "10"
-            ],
-            [
-                "CloseOperator",
-                ")"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 0,
-        "tag": "function_call",
-        "data": [
-            [
-                "function_call",
-                "callme"
-            ],
-            [
-                "constant",
-                "12312"
-            ],
-            [
-                "comma",
-                ","
-            ],
-            [
-                "constant",
-                "123123"
-            ],
-            [
-                "comma",
-                ","
-            ],
-            [
-                "constant",
-                "1009123"
-            ],
-            [
-                "CloseOperator",
-                ")"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 0,
-        "tag": "function_call",
-        "data": [
-            [
-                "function_call",
-                "pls"
-            ],
-            [
-                "CloseOperator",
-                ")"
+                "d"
             ]
         ]
     }

@@ -1,58 +1,26 @@
-int a;
-= ;
-while(a > 10 )
+int main()
 {
 
-	cout<<a<<endl;
-	= ;
-	if(a > 12 )
+	int a,b;
+	float c,d;
+	a =10 ;
+	b =20 ;
+	if(a > b )
 	{
 
-		cout<<"Boobs"<<endl;
-		if(a eq 15 )
-		{
-
-			cout<<"Myass"<<endl;
-			if(a > 69 )
-			{
-
-				cout<<"Nice"<<endl;
-				
-				
-			}
-
-			else if(a < 2 )
-			{
-
-				cout<<"Not nice"<<endl;
-				
-				
-			}
-
-			else{
-
-				cout<<"Nea"<<endl;
-				
-				
-			}
-
-			
-			
-		}
-
-		else{
-
-			cout<<"rohan  is"<<a<<endl;
-			fname(
-			
-		}
-
+		printf("%f",c);
 		
 		
 	}
 
-	
+	else{
+
+		printf("%f",d);
+		
+		
+	}
+
+	return 0;
 	
 }
 
-callme(pls(

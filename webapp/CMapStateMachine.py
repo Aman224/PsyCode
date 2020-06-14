@@ -169,15 +169,39 @@ def Variable(current,line,source):
         takeNext(current,line,source)
 
 ############ 
+def FunctionDef(current,line):
+    print("<function>")
+    ret_type = line[current][1]
+    function_name = line[current+1][1]
+    SymTab("add",[function_name],ret_type)
+    print("<function_name>{}</function_name>".format(function_name))
+    print("<args>")
+    for i in range(2,len(line)):
+        var_name = line[i][2]
+        var_type = line[i][1] 
+        SymTab("add",var_name,var_type)
+        print("<expression>")
+        print("<var_declare>")
+        print("<variable_type>{}</variable_type>".format(var_type))
+        print("<variable>")
+        print("<variable_name>{}</variable_name>".format(var_name[0]))
+        print("</variable>")
+        print("</var_declare>")
+        print("</expression>")
+    print("</args>")
+    print("</function>")
 
 def Function(current,line,source=None):
+
     print("<function_call>")
     function_name = line[current][1]
+    var_type = SymTab("get",function_name)
+    if source == 'print':
+        print("<variable_type>{}</variable_type>".format(var_type))
     print("<function_name>{}</function_name>".format(function_name))
     print("<args>")
     expression(current,line,"args")
-    # print(tag)
-    print("</args>")    
+    print("</args>")
     print("</function_call>")
     current = Nex()
     takeNext(current,line,source)
@@ -239,10 +263,10 @@ def Declaration(current,line):
     print("<var_declare>")
     Type = line[current][1]
     var_list = line[current+1][1]
-    
 
     # SymTab("add",var_list,Type)
     print("<variable_type>{}</variable_type>".format(Type))
+
     for var in var_list[::-1]:
         print("<variable>")
         print("<variable_name>{}</variable_name>".format(var))
@@ -290,6 +314,10 @@ def Definition(current,line):
 
     print("</var_define>")
 
+def Return(current,line):
+    print("<return>")
+    expression(current,line,"print")
+    print("</return>")
 
 def Main(current,line):
     print("<main>")
@@ -306,12 +334,12 @@ def bodyTagger(old,newer):
 if __name__ == "__main__":
     with open("Table.json") as F:
         JFile = json.load(F)
-    TagDict = {"function":Function,"assignment":Assignment,"if":If,\
+    TagDict = {"function":FunctionDef,"assignment":Assignment,"if":If,\
 				"else":Else,"elif":Elif,"print":Print,"while":While,\
                 "OpenOperator":OpenC,"function_call":Function,\
                 "UAssignment":UAssignment,"main":Main,\
                 "Declaration":Declaration,"Definition":Definition,\
-                "Input":Input}
+                "Input":Input,"return":Return}
     print("<program>")
     symbolTable = dict()
     global nex
