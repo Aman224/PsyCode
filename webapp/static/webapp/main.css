@@ -80,7 +80,7 @@ nav {
 }
 
 .contentArea {
-    padding:6px 12px;
+    padding: .375rem .75rem !important;
     height: 88vh; 
     width: 49.6%; 
     float: right; 
@@ -88,6 +88,9 @@ nav {
     border-radius: 4px;
     position: relative;
     top: -5px;
+    font-size: 16px !important;
+    margin-top: 0px !important;
+    box-shadow: 0px 6px 20px 5px rgba(0,0,0,0.1);
 }
 
 #page-content {

@@ -9,6 +9,10 @@
     <!-- CSS file -->
     <link rel="stylesheet" type="text/css" href="{% static 'webapp/main.css' %}">
 
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css"/>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
@@ -17,6 +21,10 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- LightMode / DarkMode -->
+    <link id="stylesheet" href="{% static 'webapp/light-mode.css' %}" id="styles" rel="stylesheet" type="text/css" title="light-mode"/>
+
 
     <title>PsyCode</title>
 </head>
@@ -88,6 +96,10 @@
     </footer> -->
 </body>
 
+<!-- Prism -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
+
+<!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
 
 <script>
@@ -178,6 +190,13 @@
             this.classList.toggle("text-area-dark-mode");
         });
 
+        if(isDarkThemeSelected()){
+            stylesheet.setAttribute('href', "{% static 'webapp/dark-mode.css' %}");
+        }
+        else
+        {   
+            stylesheet.setAttribute('href', "{% static 'webapp/light-mode.css' %}");
+        }
     }
 
     function isDarkThemeSelected() {
@@ -210,11 +229,29 @@
             langSelLabel.classList.remove("langSel-label-dark-mode");
         }
 
+
+        var stylesheet = document.getElementById("stylesheet");
+        
+        if(isDarkThemeSelected()){
+            stylesheet.setAttribute('href', "{% static 'webapp/dark-mode.css' %}");
+        }
+        else
+        {   
+            stylesheet.setAttribute('href', "{% static 'webapp/light-mode.css' %}");
+        }
+
     }
 
     (function() {
     setThemeFromCookie();
     })();
+
+    function setActiveStyleSheet(url){
+
+
+    }
+
+
 
 </script>
 
