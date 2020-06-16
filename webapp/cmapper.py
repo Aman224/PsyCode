@@ -96,11 +96,19 @@ def RecursiveTag(Tree,parent=None):
                 RecursiveTag(child,'var_declare')
             elif(parent=='condition'):
                 RecursiveTag(child,'condition')
+            elif(parent=='return'):
+                RecursiveTag(child,'return')
             else:
                 RecursiveTag(child,parent)
         elif(child.tag=='expression'):
             if(parent=='print'):
                 RecursiveTag(child,'printf_expression')
+                print(variable_list)
+                if(variable):
+                    variable_list.append(variable)
+                    variable=''
+            if(parent=='return'):
+                RecursiveTag(child,'return')
                 print(variable_list)
                 if(variable):
                     variable_list.append(variable)
@@ -139,7 +147,7 @@ def RecursiveTag(Tree,parent=None):
                 elif(child.text=='double'):
                     f.write('%'+'f')
 
-            elif(parent=='input_expression_variable' or parent=='function_call'):
+            elif(parent=='input_expression_variable' or parent=='function_call' or parent=='return'):
                 continue
             elif(parent=='function_expression'):
                 variable+=child.text+' '
@@ -151,7 +159,7 @@ def RecursiveTag(Tree,parent=None):
             else:
                 f.write(child.text+' ')
         elif(child.tag=='variable_name'):
-            if(parent=='printf_expression_variable' or parent=='function_call' or parent=='function_expression'):
+            if(parent=='printf_expression_variable' or parent=='function_call' or parent=='function_expression' or parent=='return'):
                 variable+=child.text
             elif(parent=='print_func_call'):
                 parameters+=child.text
@@ -238,7 +246,7 @@ def RecursiveTag(Tree,parent=None):
                 f.write(expression)
                 expression=''
         elif(child.tag=='constant'):
-            if(parent=='function_call' or parent=='function'):
+            if(parent=='function_call' or parent=='function' or parent=='return'):
                 variable+=child.text
                 continue
             if(parent=='printf_expression' or parent=='input_expression'):
@@ -282,7 +290,7 @@ def RecursiveTag(Tree,parent=None):
                 child.text=='!'
             elif(child.text=='eq'):
                 child.text='=='
-            if(parent=='function' or parent=='function_call'):
+            if(parent=='function' or parent=='function_call' or parent=='return'):
                 variable+=child.text
                 continue
             elif(parent=='print_func_call'):
@@ -372,7 +380,14 @@ def RecursiveTag(Tree,parent=None):
             f.write(')\n')
              
         elif(child.tag=='break' or child.tag=='continue'):
-            f.write(child.tag+';\n')         
+            f.write(child.tag+';\n')       
+        elif(child.tag=='return'):
+            f.write('return ')
+            RecursiveTag(child,'return')
+            statement=",".join(variable_list)
+            f.write(statement+';\n')
+            variable_list=[]
+
 variable_list=[]
 for_list=[]
 factor_list=[]
@@ -386,22 +401,22 @@ isFactor=0
 print_func=0
 variable=''
 expression=''
-file="Final_XML.xml"
+file="xmlfile2.xml"
 tree = ET.parse(file)
 root = tree.getroot()
-f = open("final_output.txt","w")
+f = open("final_python.txt","w")
 f.write('#include<stdio.h>\n\n')
 RecursiveTag(root)
 f.close()
 if prime==1:
-    filenames = ['./webapp/prime.txt', 'final_output.txt']
+    filenames = ['prime.txt', 'final_python.txt']
     with open('final.txt', 'w') as outfile:
         for fname in filenames:
             with open(fname) as infile:
                 for line in infile:
                     outfile.write(line)
                 outfile.write('\n')
-    os.rename('final.txt', 'final_output.txt')
+    os.rename('final.txt', 'final_python.txt')
     
 
 
