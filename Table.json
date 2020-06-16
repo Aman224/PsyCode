@@ -1,50 +1,6 @@
 [
     {
         "intendLevel": 0,
-        "tag": "main",
-        "data": [
-            [
-                "main",
-                "main"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "Declaration",
-        "data": [
-            [
-                "Type",
-                "int"
-            ],
-            [
-                "VarList",
-                [
-                    "b",
-                    "a"
-                ]
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "Declaration",
-        "data": [
-            [
-                "Type",
-                "float"
-            ],
-            [
-                "VarList",
-                [
-                    "d",
-                    "c"
-                ]
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
         "tag": "assignment",
         "data": [
             [
@@ -58,16 +14,20 @@
         ]
     },
     {
-        "intendLevel": 1,
-        "tag": "assignment",
+        "intendLevel": 0,
+        "tag": "if",
         "data": [
             [
                 "identifier",
-                "b"
+                "a"
+            ],
+            [
+                "boolOp",
+                "g"
             ],
             [
                 "constant",
-                "20"
+                "10"
             ]
         ]
     },
@@ -84,18 +44,84 @@
                 "g"
             ],
             [
-                "identifier",
-                "b"
+                "constant",
+                "7"
             ]
         ]
     },
     {
         "intendLevel": 2,
-        "tag": "print",
+        "tag": "if",
         "data": [
             [
                 "identifier",
-                "c"
+                "a"
+            ],
+            [
+                "boolOp",
+                "l"
+            ],
+            [
+                "constant",
+                "9"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 3,
+        "tag": "print",
+        "data": [
+            [
+                "string",
+                "Hi"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 2,
+        "tag": "elif",
+        "data": [
+            [
+                "identifier",
+                "a"
+            ],
+            [
+                "boolOp",
+                "l"
+            ],
+            [
+                "constant",
+                "8"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 3,
+        "tag": "print",
+        "data": [
+            [
+                "string",
+                "No"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 2,
+        "tag": "else",
+        "data": [
+            [
+                "else",
+                "else"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 3,
+        "tag": "print",
+        "data": [
+            [
+                "string",
+                "Nah"
             ]
         ]
     },
@@ -114,8 +140,28 @@
         "tag": "print",
         "data": [
             [
-                "identifier",
-                "d"
+                "string",
+                "Bebe"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 0,
+        "tag": "else",
+        "data": [
+            [
+                "else",
+                "else"
+            ]
+        ]
+    },
+    {
+        "intendLevel": 1,
+        "tag": "print",
+        "data": [
+            [
+                "string",
+                "Nope"
             ]
         ]
     }

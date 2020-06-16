@@ -39,11 +39,15 @@ def t_MAIN(t):
 	addToLine(("main","main"))
 
 def t_FUNCTIONDEF(t):
-	r'(int|float|char|string|void)\s*[a-zA-Z][a-zA-Z0-9_]*\s*\('
+	r'([Ff]unction\s*)?(int|float|char|string|void|double)\s*[a-zA-Z][a-zA-Z0-9_]*\s*\('
 	print("<function>")
 	ip = t.value[:-1].split()
-	ret_type = ip[0]
-	fname = ip[1]
+	if ip[0].lower() == "function":
+		ret_type = ip[1]
+		fname = ip[2]
+	else:
+		ret_type = ip[0]
+		fname = ip[1]
 	setSemantics("function")
 	addToLine(("Return_Type",ret_type))
 	addToLine(("function_name",fname))
@@ -64,7 +68,7 @@ def t_ARGSDEF(t):
 		addToLine(("args",var_typ,[var_name]))
 
 def t_VARDEFINE(t):
-	r'(int|float|char)\s+(\s*,?[a-zA-Z][a-zA-Z0-9_]*\s*(=.+)?)+'
+	r'(int|float|char|double)\s+(\s*,?[a-zA-Z][a-zA-Z0-9_]*\s*(=.+)?)+'
 	print("<var_define>")
 	print("original:",t.value)
 	ip = t.value.split()
@@ -88,7 +92,7 @@ def t_VARDEFINE(t):
 		addToTable()
 
 def t_DECLARATION(t):
-	r'[Dd]eclare\s+(?:a|an)?\s*(?:int|[Ii]ntegers?|Floats?|floats?|chars?|[cC]haracters?)\s+(?:variables?|arrays?)?\s*([a-zA-Z][a-zA-Z0-9_]*(?:\[\d+\])?)(?:(?:\s*(?:,|and)\s*)?([a-zA-Z][a-zA-Z0-9_]*(?:\[\d+\])?))*'
+	r'[Dd]eclare\s+(?:a|an)?\s*(?:int|[Ii]ntegers?|Floats?|floats?|chars?|[cC]haracters?|double)\s+(?:variables?|arrays?)?\s*([a-zA-Z][a-zA-Z0-9_]*(?:\[\d+\])?)(?:(?:\s*(?:,|and)\s*)?([a-zA-Z][a-zA-Z0-9_]*(?:\[\d+\])?))*'
 	print("<var_declaration>")
 	ip = t.value
 	# print(ip)
@@ -102,12 +106,12 @@ def t_DECLARATION(t):
 		start +=1
 	var_list =list() 
 	L = len(ip)
-	typeDict= {"int":"int","integers":"int","integer":"int","float":"float","floats":"float","char":"char","character":"char","characters":"char"}
+	typeDict= {"int":"int","integers":"int","integer":"int","float":"float","floats":"float","char":"char","character":"char","characters":"char","double":"double"}
 	for i in range(L-1,start-1,-1):
 
 		if ip[i].lower() in ("variable","variables","and",",","array","arrays"):
 			continue
-		elif ip[i].lower() in ("int","integers","integer","float","floats","char","characters"):
+		elif ip[i].lower() in ("int","integers","integer","float","floats","char","characters","double"):
 			Type = typeDict[ip[i].lower()]
 		else:
 			var_list.append(ip[i])
@@ -196,7 +200,7 @@ def t_ISMULTIPLE(t):
 	addToLine(("boolStr","#m"))
 
 def t_ISPRIME(t):
-	r'is\s+prime'
+	r'is\s+(a\s+)?prime(\s+number)?'
 	print("<boolStr>",end="")
 	addToLine(("boolStr","#p"))
 

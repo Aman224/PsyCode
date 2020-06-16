@@ -80,3 +80,12 @@ class HomeView(TemplateView):
         context = {'form': form, 'object': data}
 
         return render(request, self.template_name, context)
+
+
+
+def help(request):
+    return render(request, 'webapp/help.html')
+
+
+def about(request):
+    return render(request, 'webapp/about.html')

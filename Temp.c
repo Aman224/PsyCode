@@ -1,26 +1,53 @@
-int main()
+int a;
+a =10 ;
+if(a > 10 )
 {
 
-	int a,b;
-	float c,d;
-	a =10 ;
-	b =20 ;
-	if(a > b )
+	if(a > 7 )
 	{
 
-		printf("%f",c);
+		if(a < 9 )
+		{
+
+			printf("Hi ");
+			
+			
+		}
+
+		else if(a < 8 )
+		{
+
+			printf("No ");
+			
+			
+		}
+
+		else{
+
+			printf("Nah ");
+			
+			
+		}
+
 		
 		
 	}
 
 	else{
 
-		printf("%f",d);
+		printf("Bebe ");
 		
 		
 	}
 
-	return 0;
+	
+	
+}
+
+else{
+
+	printf("Nope ");
+	
 	
 }
 

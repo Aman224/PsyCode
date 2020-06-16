@@ -372,20 +372,20 @@ isFactor=0
 print_func=0
 variable=''
 expression=''
-file="xmlfile2.xml"
+file="Final_XML.xml"
 tree = ET.parse(file)
 root = tree.getroot()
-f = open("final_python.txt","w")
+f = open("final_output.txt","w")
 RecursiveTag(root)
 f.close()
 if prime==1:
-    filenames = ['prime.txt', 'final_python.txt']
+    filenames = ['./webapp/prime.txt', 'final_output.txt']
     with open('final.txt', 'w') as outfile:
         for fname in filenames:
             with open(fname) as infile:
                 for line in infile:
                     outfile.write(line)
                 outfile.write('\n')
-    os.rename('final.txt', 'final_python.txt')
+    os.rename('final.txt', 'final_output.txt')
       
  

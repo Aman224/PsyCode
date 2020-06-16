@@ -25,7 +25,7 @@ def RecPy(Tree):
 	global l_temp,r_temp
 	type_val = 0
 	children = list(Tree)     
-	print(children)
+	# print(children)
 	for child in children:
 
 		if(child.tag == 'main'):
@@ -128,7 +128,6 @@ def RecPy(Tree):
 				condition_list.append(child.text)
 			else:
 				f.write(child.text)
-			print("constant",condition_list)
 			assignment_value_check(store)
 			setter(store)
 				
@@ -262,7 +261,7 @@ def RecPy(Tree):
 
 		elif(child.tag == 'args'):
 			parent_list.insert(0,"args")
-		print("c",condition_list,l_value,r_value)
+		# print("c",condition_list,l_value,r_value)
 		RecPy(child)
 
 
@@ -409,10 +408,12 @@ mytree = ET.parse(file)
 myroot = mytree.getroot()
 f = open("final_output.txt","w")
 RecPy(myroot)
+f.close()
 if(set_prime):
 	set_prime = 0
-	with open("prime_function.txt", "r") as prime:
-		with open("final_python.txt", "r+") as result:
+	with open("./webapp/prime_function.txt", "r") as prime:
+		with open("final_output.txt", "r+") as result:
 			content = result.read()
 			result.seek(0)
-			result.write(prime.read()+'\n\n\n'+content)
+			result.write(prime.read())
+			result.write('\n\n\n'+content)

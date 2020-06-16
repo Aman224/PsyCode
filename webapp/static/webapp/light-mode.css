@@ -3,6 +3,10 @@
  * Inspired by Visual Studio syntax coloring
  */
 
+ a {
+     color: black !important;
+ }
+ 
  code[class*="language-"],
  pre[class*="language-"] {
      color: #393A34;

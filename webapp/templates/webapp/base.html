@@ -39,9 +39,9 @@
     
     <!--Navigation-->
     <nav class="navbar navbar-expand-lg" id="navbar_ID" style="margin-bottom: 2px;">
-        <span class="navbar-brand" href="{% url 'home' %}">
+        <a class="navbar-brand" href="{% url 'home' %}">
             PSEUDOCODE TO CODE
-        </span>
+        </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,10 +52,10 @@
                     <i class=" nav-link material-icons dark-mode-switch">code</i>
                 </li>
                 <li class="nav-item">
-                <span class="nav-link" href="#">About</span>
+                <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <span id="lang-sel-label">LANGUAGE</span>
+                    <span id="lang-sel-label"></span>
                 </li>
             </ul>
 
@@ -63,11 +63,10 @@
             <i class="material-icons dark-mode-switch"  onclick="darkMode()">brightness_4</i>
             
             <!-- How to Use button -->
-            <button class="btn nav-button" type="submit">
+            <a class="btn nav-button" type="submit" href="{% url 'help' %}">
                 How to Use
                 <img style="margin-bottom: 4px" src="https://img.icons8.com/material/24/000000/help--v1.png"/>
-            </button>
-            
+            </a>
             
         </div>
     </nav>
