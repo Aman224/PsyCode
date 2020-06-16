@@ -376,7 +376,7 @@ file="Final_XML.xml"
 tree = ET.parse(file)
 root = tree.getroot()
 f = open("final_output.txt","w")
-f.write('#include<iostream>\n using namespace std;\n')
+f.write('#include<iostream>\nusing namespace std;\n\n')
 RecursiveTag(root)
 f.close()
 if prime==1:

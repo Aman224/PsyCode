@@ -1,157 +1,11 @@
 [
     {
         "intendLevel": 0,
-        "tag": "assignment",
+        "tag": "main",
         "data": [
             [
-                "identifier",
-                "a"
-            ],
-            [
-                "constant",
-                "10"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 0,
-        "tag": "if",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "g"
-            ],
-            [
-                "constant",
-                "10"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "if",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "g"
-            ],
-            [
-                "constant",
-                "7"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 2,
-        "tag": "if",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "l"
-            ],
-            [
-                "constant",
-                "9"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Hi"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 2,
-        "tag": "elif",
-        "data": [
-            [
-                "identifier",
-                "a"
-            ],
-            [
-                "boolOp",
-                "l"
-            ],
-            [
-                "constant",
-                "8"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "No"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 2,
-        "tag": "else",
-        "data": [
-            [
-                "else",
-                "else"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 3,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Nah"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 1,
-        "tag": "else",
-        "data": [
-            [
-                "else",
-                "else"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 2,
-        "tag": "print",
-        "data": [
-            [
-                "string",
-                "Bebe"
-            ]
-        ]
-    },
-    {
-        "intendLevel": 0,
-        "tag": "else",
-        "data": [
-            [
-                "else",
-                "else"
+                "main",
+                "main"
             ]
         ]
     },
@@ -161,7 +15,7 @@
         "data": [
             [
                 "string",
-                "Nope"
+                "Hello"
             ]
         ]
     }
