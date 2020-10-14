@@ -329,6 +329,7 @@ def intendChecker(line,intend_level):
 
 if __name__ == "__main__":
 	lexer = lex.lex()
+	print("Started Lexxing")
 	with open("input.ini","r") as inputFile:
 		# linebyline = inputFile.readlines()
 		intend_level = 0
@@ -348,4 +349,5 @@ if __name__ == "__main__":
 	print("\n\n","#"*10)
 	for line in jsonObj:
 		print(line)
-	#	print(i)
+	print("Stoped Lexing")
+	print('#'*10)
